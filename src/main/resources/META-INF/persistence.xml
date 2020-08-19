@@ -10,6 +10,8 @@
 
         <class>com.bootcamp.seatcode.mike.tablas.Estados</class>
         <class>com.bootcamp.seatcode.mike.tablas.Login</class>
+        <class>com.bootcamp.seatcode.mike.tablas.Tareas</class>
+        <class>com.bootcamp.seatcode.mike.tablas.Usuarios</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
