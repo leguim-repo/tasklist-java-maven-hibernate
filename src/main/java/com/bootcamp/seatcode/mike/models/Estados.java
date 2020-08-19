@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Estados {
     @Id
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "nombre")
     private String nombre;
@@ -22,7 +22,7 @@ public class Estados {
 
     }
 
-    public Estados(long id, String nombre, String descripcion) {
+    public Estados(int id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

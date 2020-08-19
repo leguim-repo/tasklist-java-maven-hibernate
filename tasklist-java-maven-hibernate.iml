@@ -6,9 +6,20 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="tasklist-java-maven-hibernate" value="73495113-badd-459d-99a0-4f5ec984dd4a" />
+          <factory-entry name="TaskListPersistence" />
+          <factory-entry name="tasklist-java-maven-hibernate" />
         </datasource-mapping>
         <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="META-INF:hibernate.cfg.xml" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>
@@ -17,6 +28,7 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
@@ -38,7 +50,8 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.jboss:jandex:2.0.3.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml:classmate:1.3.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: dom4j:dom4j:1.6.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:1.4.196" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.21" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.lanterna:lanterna:3.0.3" level="project" />
