@@ -1,4 +1,4 @@
-package com.bootcamp.seatcode.mike.models;
+package com.bootcamp.seatcode.mike.tablas;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +28,13 @@ public class Estados {
         this.descripcion = descripcion;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -53,4 +60,6 @@ public class Estados {
                 ", descripcion='" + descripcion + '\'' +
                 '}';
     }
+
+
 }
