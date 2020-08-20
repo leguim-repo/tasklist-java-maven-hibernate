@@ -8,11 +8,11 @@ import javax.persistence.Persistence;
 import java.text.ParseException;
 import java.util.List;
 
-public class Crud {
+public class CrudTarea {
     private static EntityManager em;
     private static EntityManagerFactory emf;
 
-    public Crud() {
+    public CrudTarea() {
         this.emf = Persistence.createEntityManagerFactory("TaskListPersistence");
         this.em = this.emf.createEntityManager();
     }
