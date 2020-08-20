@@ -15,12 +15,20 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class testgui {
+    static Terminal terminal;
+    static Screen screen;
+    static WindowBasedTextGUI textGUI;
+    static BasicWindow window;
+    static Panel mainPanel;
 
-    public static void verTabla(Panel mainPanel) {
-        final Table<String> tabla = new Table<String>("Nombre", "Apellido", "Num Cuenta");
-        tabla.getTableModel().addRow("Jason", "Bourne", "111111");
-        tabla.getTableModel().addRow("Denis", "Pastor", "222222");
-        tabla.getTableModel().addRow("James", "Stocks", "333333");
+    public static void verTabla()  {
+        final Panel panelTabla = new Panel();
+        panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+
+        final Table<String> tabla = new Table<String>("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
+        tabla.getTableModel().addRow("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
+        tabla.getTableModel().addRow("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
+        tabla.getTableModel().addRow("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
 
         tabla.setSelectAction(new Runnable() {
             @Override
@@ -31,25 +39,39 @@ public class testgui {
                 }
             }
         });
-        mainPanel.addComponent(tabla);
+
+        // TODO botones custom para cada opcion
+        Button btnCerrar = new Button("Cerrar", new Runnable() {
+            @Override
+            public void run() {
+                // Actions go here
+                System.out.println("btnCerrar");
+                mainPanel.removeComponent(panelTabla);
+                window.setComponent(mainPanel);
+            }
+        });
+
+        panelTabla.addComponent(new EmptySpace(new TerminalSize(0, 1)));
+        panelTabla.addComponent(tabla);
+        panelTabla.addComponent(new EmptySpace(new TerminalSize(0, 1)));
+        panelTabla.addComponent(btnCerrar);
+
+        window.setComponent(panelTabla);
+        //textGUI.addWindowAndWait(window);
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        Terminal terminal = new DefaultTerminalFactory().createTerminal();
-        Screen screen = new TerminalScreen(terminal);
-        screen.startScreen();
-        final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-        try {
-            final BasicWindow window = new BasicWindow("Task List Project");
 
-            final Panel mainPanel = new Panel();
+    public static void menuPrincipal() throws IOException {
+        try {
+            window = new BasicWindow("Task List Project");
+            mainPanel = new Panel();
             ActionListBox dialogsListBox = new ActionListBox();
-            dialogsListBox.addItem("List Tareas", new Runnable() {
+            dialogsListBox.addItem("Lista de Tareas", new Runnable() {
                 @Override
                 public void run() {
                     String result = TextInputDialog.showDialog(textGUI, "TextInputDialog sample", "This is the description", "initialContent");
                     System.out.println("Result was: " + result);
-                    verTabla(mainPanel);
+                    verTabla();
                 }
             });
 
@@ -148,5 +170,12 @@ public class testgui {
         finally {
             screen.stopScreen();
         }
+    }
+    public static void main(String[] args) throws IOException, InterruptedException {
+        terminal = new DefaultTerminalFactory().createTerminal();
+        screen = new TerminalScreen(terminal);
+        screen.startScreen();
+        textGUI = new MultiWindowTextGUI(screen);
+        menuPrincipal();
     }
 }
