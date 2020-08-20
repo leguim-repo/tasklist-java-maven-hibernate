@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name = "tareas")
@@ -26,17 +29,18 @@ public class Tarea {
     private String responsable;
 
     @Column(name = "fecha")
-    private java.sql.Timestamp fecha;
+    private java.sql.Date fecha;
 
     public Tarea() {
     }
 
-    public Tarea(int id, String titulo, String descripcion, String estado, String responsable, Timestamp fecha) {
-        this.id = id;
+    public Tarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha) throws ParseException {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
         this.responsable = responsable;
+        // https://www.baeldung.com/java-string-to-timestamp
+        //this.fecha = Timestamp.valueOf("20/08/31");
         this.fecha = fecha;
     }
 
@@ -80,11 +84,11 @@ public class Tarea {
         this.responsable = responsable;
     }
 
-    public Timestamp getFecha() {
+    public java.sql.Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Timestamp fecha) {
+    public void setFecha(java.sql.Date fecha) {
         this.fecha = fecha;
     }
 
