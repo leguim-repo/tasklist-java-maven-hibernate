@@ -5,9 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Estados;
-import com.bootcamp.seatcode.mike.tablas.Login;
-import com.bootcamp.seatcode.mike.tablas.Tareas;
 import com.bootcamp.seatcode.mike.tablas.Usuarios;
 
 public class testUsuarios {
@@ -31,6 +28,7 @@ public class testUsuarios {
 
             System.out.println("");
         }
+
         manager.close();
         emf.close();
     }

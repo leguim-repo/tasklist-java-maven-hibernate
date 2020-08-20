@@ -1,5 +1,14 @@
 # Tasklist-java-maven-hibernate
 
+
+## Notes
+```code
+JPA o Java Persistence API
+EntityManager será la clase que nos permitirá hacer transacciones con la base de datos, es decir, guardar entidades en base de datos, modificarlas, consultarlas, etc
+persistence.xml se encarga de conectarnos a la base de datos y define el conjunto de entidades que vamos a gestionar
+
+
+```
 ## Generate project with Maven
 
 ```code

@@ -5,10 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Estados;
-import com.bootcamp.seatcode.mike.tablas.Login;
+
 import com.bootcamp.seatcode.mike.tablas.Tareas;
-import com.bootcamp.seatcode.mike.tablas.Usuarios;
 
 public class testTareas {
 
@@ -32,6 +30,7 @@ public class testTareas {
             System.out.println("Fecha: "+e.getFecha());
             System.out.println("");
         }
+
 
         manager.close();
         emf.close();

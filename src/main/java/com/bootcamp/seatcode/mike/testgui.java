@@ -1,46 +1,72 @@
 package com.bootcamp.seatcode.mike;
 
+import com.bootcamp.seatcode.mike.tablas.Tareas;
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
 import com.googlecode.lanterna.gui2.table.Table;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class testgui {
-    static Terminal terminal;
-    static Screen screen;
-    static WindowBasedTextGUI textGUI;
-    static BasicWindow window;
-    static Panel mainPanel;
+    private static Terminal terminal;
+    private static Screen screen;
+    private static WindowBasedTextGUI textGUI;
+    private static BasicWindow window;
+    private static Panel mainPanel;
+
+    private static EntityManager manager;
+    private static EntityManagerFactory emf;
+
+    public static List<Tareas> getTareas() {
+        emf = Persistence.createEntityManagerFactory("TaskListPersistence");
+        manager = emf.createEntityManager();
+        List<Tareas> tareas = (List<Tareas>) manager.createQuery("FROM Tareas").getResultList();
+        manager.close();
+        emf.close();
+        return tareas;
+    }
 
     public static void verTabla()  {
         final Panel panelTabla = new Panel();
         panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
-        final Table<String> tabla = new Table<String>("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
-        tabla.getTableModel().addRow("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
-        tabla.getTableModel().addRow("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
-        tabla.getTableModel().addRow("ID", "Titulo", "Descripcion", "Estado", "Responsable", "Fecha");
+        final Table<String> tabla = new Table<String>("ID", "Estado", "Titulo", "Descripcion", "Responsable", "Fecha");
+        for (Tareas e: getTareas()) {
+            //System.out.println(e);
+            tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(), e.getEstado(), e.getResponsable(), "Fecha");
+        }
 
         tabla.setSelectAction(new Runnable() {
             @Override
             public void run() {
-                List<String> data = tabla.getTableModel().getRow(tabla.getSelectedRow());
+                List<String> data = tabla.getTableModel().getRow(tabla.getSelectedRow()); // no esta habilitado multirow
+                System.out.println(data.toString());
+                /*
                 for(int i = 0; i < data.size(); i++) {
                     System.out.println(data.get(i));
                 }
+                 */
             }
         });
 
-        // TODO botones custom para cada opcion
+        // TODO botones custom para cada opcion lista, cambiar estado, editar, borrar
         Button btnCerrar = new Button("Cerrar", new Runnable() {
             @Override
             public void run() {
@@ -63,7 +89,6 @@ public class testgui {
 
     public static void menuPrincipal() throws IOException {
         try {
-            window = new BasicWindow("Task List Project");
             mainPanel = new Panel();
             ActionListBox dialogsListBox = new ActionListBox();
             dialogsListBox.addItem("Lista de Tareas", new Runnable() {
@@ -171,11 +196,21 @@ public class testgui {
             screen.stopScreen();
         }
     }
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
+        //Todo como cambiar el tamaño de la ventana y maximizarla
+        TerminalSize size = new TerminalSize(100,24);
+
         terminal = new DefaultTerminalFactory().createTerminal();
         screen = new TerminalScreen(terminal);
         screen.startScreen();
         textGUI = new MultiWindowTextGUI(screen);
+        window = new BasicWindow("Task List Project");
+
+
+
+        System.out.println(terminal.getTerminalSize().toString());
+        //window.setHints(Arrays.asList(Window.Hint.FULL_SCREEN));
+
         menuPrincipal();
     }
 }

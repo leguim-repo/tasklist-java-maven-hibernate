@@ -6,20 +6,23 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 import com.bootcamp.seatcode.mike.tablas.Estados;
-import com.bootcamp.seatcode.mike.tablas.Login;
 import com.bootcamp.seatcode.mike.tablas.Tareas;
-import com.bootcamp.seatcode.mike.tablas.Usuarios;
+
 
 public class testEstados {
 
     private static EntityManager manager;
     private static EntityManagerFactory emf;
 
-    public static void main(String[] args) {
-        /*Creamos el gestor de persistencia (EM)*/
-        emf = Persistence.createEntityManagerFactory("TaskListPersistence");
-        manager = emf.createEntityManager();
+    public static void createNewEstado() {
+        // creo un estado nuevo de prueba
+        Estados newState = new Estados("prueba","estado nuevo de prueba");
+        manager.getTransaction().begin();
+        manager.persist(newState);
+        manager.getTransaction().commit();
+    }
 
+    public static void getEstados() {
         // datos tabla estados
         List<Estados> estados = (List<Estados>) manager.createQuery("FROM Estados").getResultList();
         System.out.println("En esta tabla hay " + estados.size() + " registros");
@@ -29,7 +32,18 @@ public class testEstados {
             System.out.println("Descripcion:"+e.getDescripcion());
             System.out.println("");
         }
+    }
 
+    public static void main(String[] args) {
+        /*Creamos el gestor de persistencia (EM)*/
+        emf = Persistence.createEntityManagerFactory("TaskListPersistence");
+        manager = emf.createEntityManager();
+
+
+        getEstados();
+
+
+        //cierro los gestores. Es obligado
         manager.close();
         emf.close();
     }
