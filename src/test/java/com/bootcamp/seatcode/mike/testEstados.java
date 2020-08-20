@@ -14,12 +14,26 @@ public class testEstados {
     private static EntityManager manager;
     private static EntityManagerFactory emf;
 
-    public static void createNewEstado() {
+    public static void createNewEstado(String nombre,String descripcion) {
         // creo un estado nuevo de prueba
-        Estados newState = new Estados("prueba","estado nuevo de prueba");
+        Estados newState = new Estados(nombre,descripcion);
         manager.getTransaction().begin();
         manager.persist(newState);
         manager.getTransaction().commit();
+    }
+
+    public static void deleteEstado(String nombre) {
+
+        //Estados estadoParaBorrar =  manager.find(Estados.class, id); //buscas el objeto por el primary key
+
+        Estados estadoParaBorrar = (Estados) manager.createNativeQuery(
+                "SELECT * FROM estados WHERE ( nombre = '"+nombre+"')",
+                Estados.class).getSingleResult();
+
+        manager.getTransaction().begin();
+        manager.remove(estadoParaBorrar);
+        manager.getTransaction().commit();
+
     }
 
     public static void getEstados() {
@@ -39,7 +53,9 @@ public class testEstados {
         emf = Persistence.createEntityManagerFactory("TaskListPersistence");
         manager = emf.createEntityManager();
 
-
+        createNewEstado("hola","aqui va la descripcion del estado");
+        getEstados();
+        deleteEstado("hola");
         getEstados();
 
 

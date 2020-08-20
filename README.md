@@ -7,6 +7,7 @@ JPA o Java Persistence API
 EntityManager será la clase que nos permitirá hacer transacciones con la base de datos, es decir, guardar entidades en base de datos, modificarlas, consultarlas, etc
 persistence.xml se encarga de conectarnos a la base de datos y define el conjunto de entidades que vamos a gestionar
 
+manager.find(Estados.class, id); //busca el objeto por el primary key
 
 ```
 ## Generate project with Maven
