@@ -6,7 +6,6 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 import com.bootcamp.seatcode.mike.tablas.Estados;
-import com.bootcamp.seatcode.mike.tablas.Tareas;
 
 
 public class testEstados {
@@ -26,6 +25,7 @@ public class testEstados {
 
         //Estados estadoParaBorrar =  manager.find(Estados.class, id); //buscas el objeto por el primary key
 
+        // esta busqueda puede encontrar mas de un registro y fallar
         Estados estadoParaBorrar = (Estados) manager.createNativeQuery(
                 "SELECT * FROM estados WHERE ( nombre = '"+nombre+"')",
                 Estados.class).getSingleResult();

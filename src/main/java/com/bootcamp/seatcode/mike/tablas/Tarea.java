@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "tareas")
-public class Tareas {
+public class Tarea {
     @Id
     @Column(name = "id")
     private int id;
@@ -28,10 +28,10 @@ public class Tareas {
     @Column(name = "fecha")
     private java.sql.Timestamp fecha;
 
-    public Tareas() {
+    public Tarea() {
     }
 
-    public Tareas(int id, String titulo, String descripcion, String estado, String responsable, Timestamp fecha) {
+    public Tarea(int id, String titulo, String descripcion, String estado, String responsable, Timestamp fecha) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

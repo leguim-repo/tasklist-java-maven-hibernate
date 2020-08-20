@@ -1,15 +1,10 @@
 package com.bootcamp.seatcode.mike;
 
-import com.bootcamp.seatcode.mike.tablas.Tareas;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
+import com.bootcamp.seatcode.mike.tablas.Tarea;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
 import com.googlecode.lanterna.gui2.table.Table;
-import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.*;
@@ -19,9 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class testgui {
@@ -34,10 +27,10 @@ public class testgui {
     private static EntityManager manager;
     private static EntityManagerFactory emf;
 
-    public static List<Tareas> getTareas() {
+    public static List<Tarea> getTareas() {
         emf = Persistence.createEntityManagerFactory("TaskListPersistence");
         manager = emf.createEntityManager();
-        List<Tareas> tareas = (List<Tareas>) manager.createQuery("FROM Tareas").getResultList();
+        List<Tarea> tareas = (List<Tarea>) manager.createQuery("FROM Tarea").getResultList();
         manager.close();
         emf.close();
         return tareas;
@@ -48,7 +41,7 @@ public class testgui {
         panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
         final Table<String> tabla = new Table<String>("ID", "Estado", "Titulo", "Descripcion", "Responsable", "Fecha");
-        for (Tareas e: getTareas()) {
+        for (Tarea e: getTareas()) {
             //System.out.println(e);
             tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(), e.getEstado(), e.getResponsable(), "Fecha");
         }
