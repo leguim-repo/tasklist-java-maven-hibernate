@@ -16,14 +16,14 @@ public class Tarea {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "estado")
+    private String estado;
+
     @Column(name = "titulo")
     private String titulo;
 
     @Column(name = "descripcion")
     private String descripcion;
-
-    @Column(name = "estado")
-    private String estado;
 
     @Column(name = "responsable")
     private String responsable;
@@ -32,9 +32,10 @@ public class Tarea {
     private java.sql.Date fecha;
 
     public Tarea() {
+
     }
 
-    public Tarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha) throws ParseException {
+    public Tarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha)  {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -42,6 +43,15 @@ public class Tarea {
         // https://www.baeldung.com/java-string-to-timestamp
         //this.fecha = Timestamp.valueOf("20/08/31");
         this.fecha = fecha;
+    }
+
+    public void clear() {
+        this.id = 0;
+        this.titulo = "titulo";
+        this.descripcion = "descripcion";
+        this.estado = "estado";
+        this.responsable = "responsable";
+        this.fecha = Date.valueOf("50/08/31");
     }
 
     public int getId() {
@@ -94,7 +104,7 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "Tareas{" +
+        return "Tarea{" +
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
