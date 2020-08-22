@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Estados;
+import com.bootcamp.seatcode.mike.tablas.Estado;
 
 
 public class testEstados {
@@ -15,7 +15,7 @@ public class testEstados {
 
     public static void createNewEstado(String nombre,String descripcion) {
         // creo un estado nuevo de prueba
-        Estados newState = new Estados(nombre,descripcion);
+        Estado newState = new Estado(nombre,descripcion);
         manager.getTransaction().begin();
         manager.persist(newState);
         manager.getTransaction().commit();
@@ -26,9 +26,9 @@ public class testEstados {
         //Estados estadoParaBorrar =  manager.find(Estados.class, id); //buscas el objeto por el primary key
 
         // esta busqueda puede encontrar mas de un registro y fallar
-        Estados estadoParaBorrar = (Estados) manager.createNativeQuery(
+        Estado estadoParaBorrar = (Estado) manager.createNativeQuery(
                 "SELECT * FROM estados WHERE ( nombre = '"+nombre+"')",
-                Estados.class).getSingleResult();
+                Estado.class).getSingleResult();
 
         manager.getTransaction().begin();
         manager.remove(estadoParaBorrar);
@@ -38,9 +38,9 @@ public class testEstados {
 
     public static void getEstados() {
         // datos tabla estados
-        List<Estados> estados = (List<Estados>) manager.createQuery("FROM Estados").getResultList();
+        List<Estado> estados = (List<Estado>) manager.createQuery("FROM Estado").getResultList();
         System.out.println("En esta tabla hay " + estados.size() + " registros");
-        for (Estados e: estados) {
+        for (Estado e: estados) {
             System.out.println("ID: "+e.getId());
             System.out.println("Nombre Estado:"+e.getNombre());
             System.out.println("Descripcion:"+e.getDescripcion());

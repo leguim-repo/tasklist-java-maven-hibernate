@@ -1,5 +1,6 @@
 package com.bootcamp.seatcode.mike.crud;
 
+import com.bootcamp.seatcode.mike.tablas.Estado;
 import com.bootcamp.seatcode.mike.tablas.Tarea;
 
 import javax.persistence.EntityManager;
@@ -8,11 +9,11 @@ import javax.persistence.Persistence;
 import java.text.ParseException;
 import java.util.List;
 
-public class CrudTarea {
+public class CrudHibernate {
     private static EntityManager em;
     private static EntityManagerFactory emf;
 
-    public CrudTarea() {
+    public CrudHibernate() {
         this.emf = Persistence.createEntityManagerFactory("TaskListPersistence");
         this.em = this.emf.createEntityManager();
     }
@@ -45,6 +46,11 @@ public class CrudTarea {
         this.em.getTransaction().begin();
         this.em.remove(tareaABorrar);
         this.em.getTransaction().commit();
+    }
+
+    public List<Estado> readEstados() {
+        List<Estado> estados = (List<Estado>) em.createQuery("FROM Estado").getResultList();
+        return estados;
     }
 
     public void close() {

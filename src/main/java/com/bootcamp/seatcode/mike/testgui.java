@@ -1,6 +1,7 @@
 package com.bootcamp.seatcode.mike;
 
-import com.bootcamp.seatcode.mike.crud.CrudTarea;
+import com.bootcamp.seatcode.mike.crud.CrudHibernate;
+import com.bootcamp.seatcode.mike.tablas.Estado;
 import com.bootcamp.seatcode.mike.tablas.Tarea;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
@@ -22,7 +23,7 @@ public class testgui {
     private static BasicWindow window;
     private static Panel mainPanel;
 
-    private static CrudTarea crudTarea;
+    private static CrudHibernate crud;
 
     public enum Acciones {
         LISTA_TAREAS,
@@ -36,10 +37,68 @@ public class testgui {
     }
 
 
+    public static ComboBox<String> comboEstados() {
+        ComboBox<String> comboBox = new ComboBox<String>();
+        for (Estado e: crud.readEstados()) {
+           comboBox.addItem(e.getNombre());
+        }
+
+        return comboBox;
+    }
+
+    public static Panel panelEditarEstado(Tarea tarea) {
+        final Panel panelMain = new Panel();
+        panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+        panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
+
+
+        final Panel panelCampos = new Panel();
+        panelCampos.setLayoutManager(new GridLayout(2));
+
+
+        panelCampos.addComponent(new Label("Estado Actual"));
+        panelCampos.addComponent(new TextBox(new TerminalSize(45, 1), tarea.getEstado()).setReadOnly(true));
+
+        panelCampos.addComponent(new Label("Nuevo Estado"));
+
+        final ComboBox comboEstado = comboEstados();
+        panelCampos.addComponent(comboEstado);
+        panelCampos.addComponent(new EmptySpace(TerminalSize.ONE));
+
+        final Panel panelBotones = new Panel();
+        panelBotones.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));
+        panelBotones.addComponent(new EmptySpace(new TerminalSize(0, 0)));
+
+        Button btAceptar = new Button("Aceptar", new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Nuevo estoado: "+comboEstado.getText());
+
+            }
+        });
+        Button btnCancelar = new Button("Cancelar", new Runnable() {
+            @Override
+            public void run() {
+                mainPanel.removeComponent(panelMain);
+                window.setComponent(mainPanel);
+            }
+        });
+
+        panelBotones.addComponent(btAceptar);
+        panelBotones.addComponent(btnCancelar);
+
+        panelMain.addComponent(panelCampos);
+        panelMain.addComponent(new EmptySpace(TerminalSize.ONE));
+        panelMain.addComponent(panelBotones);
+
+        return panelMain;
+    }
 
     public static Panel panelEditarTarea(Tarea tarea){
-        Panel panelMain = new Panel();
+        final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
+        panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
+
 
         final Panel panelCampos = new Panel();
         panelCampos.setLayoutManager(new GridLayout(2));
@@ -49,25 +108,25 @@ public class testgui {
         id.setReadOnly(true);
         panelCampos.addComponent(id);
 
-
         panelCampos.addComponent(new Label("Estado"));
-        final TextBox estado = new TextBox(tarea.getEstado());
+        //final TextBox estado = new TextBox(new TerminalSize(45, 1), tarea.getEstado());
+        final ComboBox<String> estado = comboEstados();
         panelCampos.addComponent(estado);
 
         panelCampos.addComponent(new Label("Titulo"));
-        final TextBox titulo = new TextBox(tarea.getTitulo());
+        final TextBox titulo = new TextBox(new TerminalSize(45, 1), tarea.getTitulo());
         panelCampos.addComponent(titulo);
 
         panelCampos.addComponent(new Label("Descripcion"));
-        final TextBox descripcion = new TextBox(tarea.getDescripcion());
+        final TextBox descripcion = new TextBox(new TerminalSize(50, 4),tarea.getDescripcion());
         panelCampos.addComponent(descripcion);
 
         panelCampos.addComponent(new Label("Responsable"));
-        final TextBox responsable = new TextBox(tarea.getResponsable());
+        final TextBox responsable = new TextBox(new TerminalSize(45, 1), tarea.getResponsable());
         panelCampos.addComponent(responsable);
 
         panelCampos.addComponent(new Label("Fecha"));
-        final TextBox fecha = new TextBox(String.valueOf(tarea.getFecha()));
+        final TextBox fecha = new TextBox(new TerminalSize(11, 1), String.valueOf(tarea.getFecha()));
         panelCampos.addComponent(fecha);
 
 
@@ -78,7 +137,6 @@ public class testgui {
         Button btAceptar = new Button("Aceptar", new Runnable() {
             @Override
             public void run() {
-                // Actions go here
                 System.out.println(estado.getText());
 
             }
@@ -86,7 +144,7 @@ public class testgui {
         Button btnCancelar = new Button("Cancelar", new Runnable() {
             @Override
             public void run() {
-                mainPanel.removeComponent(panelCampos);
+                mainPanel.removeComponent(panelMain);
                 window.setComponent(mainPanel);
             }
         });
@@ -119,7 +177,7 @@ public class testgui {
         panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
         final Table<String> tabla = new Table<String>("ID", "Estado", "Titulo", "Descripcion", "Responsable", "Fecha");
-        for (Tarea e: crudTarea.readTareas()) {
+        for (Tarea e: crud.readTareas()) {
             tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(),  e.getResponsable(), String.valueOf(e.getFecha()));
         }
 
@@ -141,7 +199,8 @@ public class testgui {
 
                     case CAMBIAR_ESTADO:
                         System.out.println("Accion: CAMBIAR_ESTADO");
-                        window.setComponent(panelEditarTarea(tarea));
+                        window.setComponent(panelEditarEstado(tarea));
+                        //window.setComponent(panelEditarTarea(tarea));
                         break;
 
                     case BORRAR_TAREA:
@@ -155,7 +214,6 @@ public class testgui {
             }
         });
 
-        // TODO botones custom para cada opcion lista, cambiar estado, editar, borrar
         Button btnCerrar = new Button("Cerrar", new Runnable() {
             @Override
             public void run() {
@@ -165,7 +223,6 @@ public class testgui {
                 window.setComponent(mainPanel);
             }
         });
-
 
         panelTabla.addComponent(new EmptySpace(new TerminalSize(0, 1)));
         panelTabla.addComponent(tabla);
@@ -260,7 +317,7 @@ public class testgui {
             mainPanel.addComponent(new Button("Exit", new Runnable() {
                 @Override
                 public void run() {
-                    crudTarea.close();
+                    crud.close();
                     window.close();
                 }
             }));
@@ -274,7 +331,7 @@ public class testgui {
         }
     }
     public static void main(String[] args) throws IOException {
-        //Todo como cambiar el tamaño de la ventana y maximizarla
+        //TODO como cambiar el tamaño de la ventana y maximizarla
         TerminalSize size = new TerminalSize(100,24);
 
         terminal = new DefaultTerminalFactory().createTerminal();
@@ -283,7 +340,7 @@ public class testgui {
         textGUI = new MultiWindowTextGUI(screen);
         window = new BasicWindow("Task List Project");
 
-        crudTarea = new CrudTarea();
+        crud = new CrudHibernate();
 
         System.out.println(terminal.getTerminalSize().toString());
         //window.setHints(Arrays.asList(Window.Hint.FULL_SCREEN));

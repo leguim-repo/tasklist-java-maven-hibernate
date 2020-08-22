@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "estados")
-public class Estados {
+public class Estado {
     @Id
     @Column(name = "id")
     private int id;
@@ -18,11 +18,11 @@ public class Estados {
     @Column(name = "descripcion")
     private String descripcion;
 
-    public Estados() {
+    public Estado() {
 
     }
 
-    public Estados(String nombre, String descripcion) {
+    public Estado(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
