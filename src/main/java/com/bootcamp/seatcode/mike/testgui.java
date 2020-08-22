@@ -38,39 +38,44 @@ public class testgui {
 
 
     public static Panel panelEditarTarea(Tarea tarea){
-        final Panel panel = new Panel();
-        panel.setLayoutManager(new GridLayout(2));
+        Panel panelMain = new Panel();
+        panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
-        panel.addComponent(new Label("id"));
+        final Panel panelCampos = new Panel();
+        panelCampos.setLayoutManager(new GridLayout(2));
+
+        panelCampos.addComponent(new Label("id"));
         final TextBox id = new TextBox(String.valueOf(tarea.getId()));
         id.setReadOnly(true);
-        panel.addComponent(id);
+        panelCampos.addComponent(id);
 
 
-        panel.addComponent(new Label("Estado"));
+        panelCampos.addComponent(new Label("Estado"));
         final TextBox estado = new TextBox(tarea.getEstado());
-        panel.addComponent(estado);
+        panelCampos.addComponent(estado);
 
-        panel.addComponent(new Label("Titulo"));
+        panelCampos.addComponent(new Label("Titulo"));
         final TextBox titulo = new TextBox(tarea.getTitulo());
-        panel.addComponent(titulo);
+        panelCampos.addComponent(titulo);
 
-        panel.addComponent(new Label("Descripcion"));
+        panelCampos.addComponent(new Label("Descripcion"));
         final TextBox descripcion = new TextBox(tarea.getDescripcion());
-        panel.addComponent(descripcion);
+        panelCampos.addComponent(descripcion);
 
-        panel.addComponent(new Label("Responsable"));
+        panelCampos.addComponent(new Label("Responsable"));
         final TextBox responsable = new TextBox(tarea.getResponsable());
-        panel.addComponent(responsable);
+        panelCampos.addComponent(responsable);
 
-        panel.addComponent(new Label("Fecha"));
+        panelCampos.addComponent(new Label("Fecha"));
         final TextBox fecha = new TextBox(String.valueOf(tarea.getFecha()));
-        panel.addComponent(fecha);
+        panelCampos.addComponent(fecha);
 
-        //panel.addComponent(new EmptySpace(new TerminalSize(0,1))); // Empty space underneath labels
-        panel.addComponent(new EmptySpace(new TerminalSize(2, 1)));
 
-        Button btPrueba = new Button("Crear", new Runnable() {
+        Panel panelBotones = new Panel();
+        panelBotones.setLayoutManager(new LinearLayout(Direction.HORIZONTAL));
+        panelBotones.addComponent(new EmptySpace(new TerminalSize(12, 0)));
+
+        Button btAceptar = new Button("Aceptar", new Runnable() {
             @Override
             public void run() {
                 // Actions go here
@@ -78,19 +83,22 @@ public class testgui {
 
             }
         });
-        panel.addComponent(btPrueba);
-
         Button btnCancelar = new Button("Cancelar", new Runnable() {
             @Override
             public void run() {
-                mainPanel.removeComponent(panel);
+                mainPanel.removeComponent(panelCampos);
                 window.setComponent(mainPanel);
             }
         });
-        panel.addComponent(btnCancelar);
 
-        //window.setComponent(panel);
-        return panel;
+        panelBotones.addComponent(btAceptar);
+        panelBotones.addComponent(btnCancelar);
+
+        panelMain.addComponent(panelCampos);
+        panelMain.addComponent(new EmptySpace(TerminalSize.ONE));
+        panelMain.addComponent(panelBotones);
+
+        return panelMain;
     }
 
     public static Tarea row2Tarea(List<String> row) {
@@ -184,12 +192,9 @@ public class testgui {
             dialogsListBox.addItem("Crear nueva Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    //panelListaTareas(Acciones.CREAR_TAREA);
-                    System.out.println("petada aqui");
                     Tarea tareavacia = new Tarea();
                     tareavacia.clear();
                     window.setComponent(panelEditarTarea(tareavacia));
-
                 }
             });
 
