@@ -89,6 +89,7 @@ public class testgui {
         });
         panel.addComponent(btnCancelar);
 
+        //window.setComponent(panel);
         return panel;
     }
 
@@ -187,8 +188,7 @@ public class testgui {
                     System.out.println("petada aqui");
                     Tarea tareavacia = new Tarea();
                     tareavacia.clear();
-                    Panel panel = panelEditarTarea(tareavacia);
-                    window.setComponent(panel);
+                    window.setComponent(panelEditarTarea(tareavacia));
 
                 }
             });

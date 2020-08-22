@@ -51,7 +51,7 @@ public class Tarea {
         this.descripcion = "descripcion";
         this.estado = "estado";
         this.responsable = "responsable";
-        this.fecha = Date.valueOf("50/08/31");
+        this.fecha = Date.valueOf("2050-08-31");
     }
 
     public int getId() {
