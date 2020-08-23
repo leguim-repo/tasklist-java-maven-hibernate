@@ -42,19 +42,16 @@ public class testgui {
         for (Estado e: crud.readEstados()) {
            comboBox.addItem(e.getNombre());
         }
-
         return comboBox;
     }
 
-    public static Panel panelEditarEstado(Tarea tarea) {
+    public static Panel panelCambiarEstado(final Acciones accion, Tarea tarea) {
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
 
-
         final Panel panelCampos = new Panel();
         panelCampos.setLayoutManager(new GridLayout(2));
-
 
         panelCampos.addComponent(new Label("Estado Actual"));
         panelCampos.addComponent(new TextBox(new TerminalSize(45, 1), tarea.getEstado()).setReadOnly(true));
@@ -72,6 +69,7 @@ public class testgui {
         Button btAceptar = new Button("Aceptar", new Runnable() {
             @Override
             public void run() {
+                System.out.println("Accion: "+accion.toString());
                 System.out.println("Nuevo estoado: "+comboEstado.getText());
 
             }
@@ -94,7 +92,7 @@ public class testgui {
         return panelMain;
     }
 
-    public static Panel panelEditarTarea(Tarea tarea){
+    public static Panel panelTarea(final Acciones accion,Tarea tarea){
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -137,6 +135,7 @@ public class testgui {
         Button btAceptar = new Button("Aceptar", new Runnable() {
             @Override
             public void run() {
+                System.out.println("Accion: "+accion.toString());
                 System.out.println(estado.getText());
 
             }
@@ -189,22 +188,22 @@ public class testgui {
                 System.out.println("Tarea objetivo:"+tarea.toString());
                 switch (accion) {
                     case LISTA_TAREAS:
-                        System.out.println("Accion: LISTA_TAREAS");
+                        System.out.println("Accion: "+accion.toString());
                         break;
 
                     case EDITAR_TAREA:
-                        System.out.println("Accion: EDITAR_TAREA");
-                        window.setComponent(panelEditarTarea(tarea));
+                        System.out.println("Accion: "+accion.toString());
+                        window.setComponent(panelTarea(accion, tarea));
                         break;
 
                     case CAMBIAR_ESTADO:
-                        System.out.println("Accion: CAMBIAR_ESTADO");
-                        window.setComponent(panelEditarEstado(tarea));
+                        System.out.println("Accion: "+accion.toString());
+                        window.setComponent(panelCambiarEstado(accion, tarea));
                         //window.setComponent(panelEditarTarea(tarea));
                         break;
 
                     case BORRAR_TAREA:
-                        System.out.println("Accion: BORRAR_TAREA");
+                        System.out.println("Accion: "+accion.toString());
                         break;
 
                     default:
@@ -251,7 +250,7 @@ public class testgui {
                 public void run() {
                     Tarea tareavacia = new Tarea();
                     tareavacia.clear();
-                    window.setComponent(panelEditarTarea(tareavacia));
+                    window.setComponent(panelTarea(Acciones.CREAR_TAREA, tareavacia));
                 }
             });
 
