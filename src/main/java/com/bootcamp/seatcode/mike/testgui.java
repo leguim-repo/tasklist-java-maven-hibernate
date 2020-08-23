@@ -92,7 +92,7 @@ public class testgui {
         return panelMain;
     }
 
-    public static Panel panelTarea(final Acciones accion,Tarea tarea){
+    public static Panel panelTarea(final Acciones accion, final Tarea tarea){
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -135,9 +135,26 @@ public class testgui {
         Button btAceptar = new Button("Aceptar", new Runnable() {
             @Override
             public void run() {
-                System.out.println("Accion: "+accion.toString());
-                System.out.println(estado.getText());
+                tarea.setEstado(estado.getText());
+                tarea.setTitulo(titulo.getText());
+                tarea.setDescripcion(descripcion.getText());
+                tarea.setResponsable(responsable.getText());
+                tarea.setFecha(Date.valueOf(fecha.getText()));
 
+                //TODO controlar valores erroneos (fecha) o campos vacios
+                if (accion == Acciones.CREAR_TAREA) {
+                    System.out.println("Accion: "+accion.toString());
+                    crud.createTarea(tarea);
+                    System.out.println(tarea.toString());
+                }
+
+                if (accion == Acciones.EDITAR_TAREA) {
+                    System.out.println("Accion: "+accion.toString());
+                    System.out.println(tarea.toString());
+
+                }
+                mainPanel.removeComponent(panelMain);
+                window.setComponent(mainPanel);
             }
         });
         Button btnCancelar = new Button("Cancelar", new Runnable() {
