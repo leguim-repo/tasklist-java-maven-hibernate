@@ -150,6 +150,7 @@ public class testgui {
 
                 if (accion == Acciones.EDITAR_TAREA) {
                     System.out.println("Accion: "+accion.toString());
+                    crud.updateTarea(tarea);
                     System.out.println(tarea.toString());
 
                 }
