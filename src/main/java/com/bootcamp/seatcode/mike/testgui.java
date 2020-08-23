@@ -10,6 +10,7 @@ import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.*;
+import com.googlecode.lanterna.terminal.virtual.DefaultVirtualTerminal;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -367,10 +368,9 @@ public class testgui {
         }
     }
     public static void main(String[] args) throws IOException {
-        //TODO como cambiar el tamaño de la ventana y maximizarla
-        TerminalSize size = new TerminalSize(100,24);
 
-        terminal = new DefaultTerminalFactory().createTerminal();
+        DefaultTerminalFactory MiConfiguracionDeTerminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(120,24));
+        terminal = MiConfiguracionDeTerminal.createTerminal();
         screen = new TerminalScreen(terminal);
         screen.startScreen();
         textGUI = new MultiWindowTextGUI(screen);
