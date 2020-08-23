@@ -77,6 +77,7 @@ public class testgui {
                 window.setComponent(mainPanel);
             }
         });
+
         Button btnCancelar = new Button("Cancelar", new Runnable() {
             @Override
             public void run() {
@@ -192,6 +193,7 @@ public class testgui {
         return tarea;
     }
 
+
     public static void panelListaTareas(final Acciones accion)  {
         final Panel panelTabla = new Panel();
         panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
@@ -225,6 +227,20 @@ public class testgui {
 
                     case BORRAR_TAREA:
                         System.out.println("Accion: "+accion.toString());
+                        MessageDialogButton selectedButton = new MessageDialogBuilder().setTitle("Borrar Tarea?")
+                                .setText("Esta seguro que desea borrar la Tarea seleccionada?")
+                                .addButton(MessageDialogButton.Yes)
+                                .addButton(MessageDialogButton.No)
+                                .build()
+                                .showDialog(textGUI);
+                        if (selectedButton == MessageDialogButton.Yes) {
+                            System.out.println("Borrado confirmado");
+                            crud.deleteTarea(tarea.getId());
+                            tabla.getTableModel().removeRow(tabla.getSelectedRow());
+                        }
+                        else {
+                            System.out.println("Borrado cancelado");
+                        }
                         break;
 
                     default:
@@ -259,14 +275,14 @@ public class testgui {
             mainPanel = new Panel();
             ActionListBox dialogsListBox = new ActionListBox();
 
-            dialogsListBox.addItem("Ver lista de Tareas", new Runnable() {
+            dialogsListBox.addItem("Ver Lista de Tareas", new Runnable() {
                 @Override
                 public void run() {
                     panelListaTareas(Acciones.LISTA_TAREAS);
                 }
             });
 
-            dialogsListBox.addItem("Crear nueva Tarea", new Runnable() {
+            dialogsListBox.addItem("Crear Nueva Tarea", new Runnable() {
                 @Override
                 public void run() {
                     Tarea tareavacia = new Tarea();
@@ -275,7 +291,7 @@ public class testgui {
                 }
             });
 
-            dialogsListBox.addItem("Cambiar estado Tarea", new Runnable() {
+            dialogsListBox.addItem("Cambiar Estado Tarea", new Runnable() {
                 @Override
                 public void run() {
                     panelListaTareas(Acciones.CAMBIAR_ESTADO);
