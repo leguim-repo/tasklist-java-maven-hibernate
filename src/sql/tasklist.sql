@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `tasklist` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `tasklist`;
 -- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: tasklist
@@ -26,10 +24,10 @@ DROP TABLE IF EXISTS `estados`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estados` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `descripcion` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descripcion` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +36,7 @@ CREATE TABLE `estados` (
 
 LOCK TABLES `estados` WRITE;
 /*!40000 ALTER TABLE `estados` DISABLE KEYS */;
-INSERT INTO `estados` VALUES (1,'To Do','Tarea para empezar'),(2,'WIP','Tarea en progreso'),(3,'Done','Tarea finalizada');
+INSERT INTO `estados` VALUES (1,'To Do','Tarea no empezar'),(2,'WIP','Tarea en progreso'),(3,'Done','Tarea finalizada'),(4,'Design','Tarea en diseño'),(5,'Test','Tarea en pruebas');
 /*!40000 ALTER TABLE `estados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,9 +49,9 @@ DROP TABLE IF EXISTS `login`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `login` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `password` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `active` tinyint DEFAULT NULL,
+  `user` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,7 +62,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'mike','1234',NULL);
+INSERT INTO `login` VALUES (1,'mike','1234',1);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,13 +75,13 @@ DROP TABLE IF EXISTS `tareas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tareas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `descripcion` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `estado` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `responsable` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `fecha` datetime DEFAULT NULL,
+  `estado` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `titulo` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descripcion` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `responsable` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +90,7 @@ CREATE TABLE `tareas` (
 
 LOCK TABLES `tareas` WRITE;
 /*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
+INSERT INTO `tareas` VALUES (1,'WIP','Proyecto Task List','Estado gobal del proyecto','Mike','2020-08-31'),(2,'WIP','Introducir Datos','Introduccion datos en la BD de Task List','mike','2020-08-31'),(3,'Done','Diseño GUI','Pensar como sera el GUI','Mike','2020-08-31'),(4,'Done','Modulo de Test Basico','Modulo para probar si conecto con la BD via hibernate','Mike','2020-08-31'),(8,'Done','Crear BD','Crear BD con las tablas basicas','Mike','2020-08-31'),(9,'Test','Logica del proyecto','Logica de funcionamiento del proyecto','Mike','2020-08-31'),(10,'Done','Como hacer un update','Funcion update del crud','Mike','2020-08-23'),(11,'Done','Crear CRUD','Crear una clase CrudHibernate para la gestion de los datos','Mike','2020-08-23'),(12,'To Do','Gestion de Usuarios','Funcionalidad para gestionar los usuarios','Nina','2020-08-31'),(14,'To Do','Funcionalidad de Login','Que la aplicacion tenga Login y Password de usuario','Nina','2020-08-31'),(15,'To Do','Relacionar tablas','Crear realaciones entre las tablas','Nina','2020-08-31');
 /*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,11 +103,11 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `apellidos` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `email` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `apellidos` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `login_id` int NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`login_id`),
   KEY `fk_usuarios_login_idx` (`login_id`),
   CONSTRAINT `fk_usuarios_login` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -120,7 +119,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'mike','hammer','mike.hammer@gmail.com',1);
+INSERT INTO `usuarios` VALUES (1,'mike','hammer','mike.hammer@gmail.com',0);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -133,4 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-19 10:51:04
+-- Dump completed on 2020-08-23 20:01:29
