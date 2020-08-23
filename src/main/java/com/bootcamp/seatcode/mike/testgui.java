@@ -45,7 +45,7 @@ public class testgui {
         return comboBox;
     }
 
-    public static Panel panelCambiarEstado(final Acciones accion, Tarea tarea) {
+    public static Panel panelCambiarEstado(final Acciones accion, final Tarea tarea) {
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -71,7 +71,10 @@ public class testgui {
             public void run() {
                 System.out.println("Accion: "+accion.toString());
                 System.out.println("Nuevo estoado: "+comboEstado.getText());
-
+                tarea.setEstado(comboEstado.getText());
+                crud.updateTarea(tarea);
+                mainPanel.removeComponent(panelMain);
+                window.setComponent(mainPanel);
             }
         });
         Button btnCancelar = new Button("Cancelar", new Runnable() {
