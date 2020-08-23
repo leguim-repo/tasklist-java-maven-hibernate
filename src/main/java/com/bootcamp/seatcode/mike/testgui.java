@@ -195,12 +195,12 @@ public class testgui {
     }
 
 
-    public static void panelListaTareas(final Acciones accion)  {
+    public static void panelListaTareas(List<Tarea> tareas, final Acciones accion)  {
         final Panel panelTabla = new Panel();
         panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
         final Table<String> tabla = new Table<String>("ID", "Estado", "Titulo", "Descripcion", "Responsable", "Fecha");
-        for (Tarea e: crud.readTareas()) {
+        for (Tarea e: tareas) {
             tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(),  e.getResponsable(), String.valueOf(e.getFecha()));
         }
 
@@ -279,7 +279,7 @@ public class testgui {
             dialogsListBox.addItem("Ver Lista de Tareas", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(Acciones.LISTA_TAREAS);
+                    panelListaTareas(crud.readTareas(), Acciones.LISTA_TAREAS);
                 }
             });
 
@@ -295,7 +295,7 @@ public class testgui {
             dialogsListBox.addItem("Cambiar Estado Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(Acciones.CAMBIAR_ESTADO);
+                    panelListaTareas(crud.readTareas(), Acciones.CAMBIAR_ESTADO);
 
                 }
             });
@@ -303,14 +303,14 @@ public class testgui {
             dialogsListBox.addItem("Editar Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(Acciones.EDITAR_TAREA);
+                    panelListaTareas(crud.readTareas(), Acciones.EDITAR_TAREA);
                 }
             });
 
             dialogsListBox.addItem("Borrar Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(Acciones.BORRAR_TAREA);
+                    panelListaTareas(crud.readTareas(), Acciones.BORRAR_TAREA);
                 }
             });
 
@@ -325,7 +325,7 @@ public class testgui {
                                 public void run() {
                                     String usuario = TextInputDialog.showDialog(textGUI, "Usuario", "Introduzca el Usuario a buscar", "Usuario");
                                     System.out.println("usuario: " + usuario);
-                                    MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Usuario: "+usuario, MessageDialogButton.OK);
+                                    MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Usuario: "+usuario+"\nFUNCIONALIDAD PENDIENTE", MessageDialogButton.OK);
                                 }
                             })
                             .addAction("Nombre", new Runnable() {
@@ -333,7 +333,8 @@ public class testgui {
                                 public void run() {
                                     String nombre = TextInputDialog.showDialog(textGUI, "Nombre", "Introduzca el Nombre a buscar", "Nombre");
                                     System.out.println("nombre: " + nombre);
-                                    MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Nombre: "+nombre, MessageDialogButton.OK);
+                                    //MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Nombre Responsable: "+nombre, MessageDialogButton.OK);
+                                    panelListaTareas(crud.buscarNombre(nombre), Acciones.LISTA_TAREAS);
                                 }
                             })
                             .addAction("Descripcion", new Runnable() {
@@ -341,7 +342,8 @@ public class testgui {
                                 public void run() {
                                     String descripcion = TextInputDialog.showDialog(textGUI, "Descripcion", "Introduzca Descripcion a buscar", "Descripcion");
                                     System.out.println("descripcion: " + descripcion);
-                                    MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Descripcion: "+descripcion, MessageDialogButton.OK);
+                                    //MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Descripcion: "+descripcion, MessageDialogButton.OK);
+                                    panelListaTareas(crud.buscarDescripcion(descripcion), Acciones.LISTA_TAREAS);
                                 }
                             })
                             .build()
@@ -368,7 +370,6 @@ public class testgui {
         }
     }
     public static void main(String[] args) throws IOException {
-
         DefaultTerminalFactory MiConfiguracionDeTerminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(120,24));
         terminal = MiConfiguracionDeTerminal.createTerminal();
         screen = new TerminalScreen(terminal);

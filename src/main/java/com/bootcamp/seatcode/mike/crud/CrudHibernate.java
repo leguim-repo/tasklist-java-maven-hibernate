@@ -55,9 +55,23 @@ public class CrudHibernate {
         return estados;
     }
 
+
+    //lo suyo seria hacerlo con @Query...supongo
+    public List<Tarea> buscarNombre(String target) {
+        List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( responsable LIKE '%"+target+"%')").getResultList();
+        return tareas;
+    }
+
+    public List<Tarea> buscarDescripcion(String target) {
+        List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( descripcion LIKE '%"+target+"%')").getResultList();
+        return tareas;
+    }
+
     public void close() {
         this.emf.close();
         this.em.close();
     }
+
+
 }
 
