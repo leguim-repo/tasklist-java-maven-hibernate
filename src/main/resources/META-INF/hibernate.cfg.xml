@@ -11,8 +11,5 @@
         <property name="connection.username">root</property>
         <property name="connection.password">secret1234</property>
 
-
-        <mapping class="com.bootcamp.seatcode.mike.tablas.Estado" />
-
     </session-factory>
 </hibernate-configuration>
