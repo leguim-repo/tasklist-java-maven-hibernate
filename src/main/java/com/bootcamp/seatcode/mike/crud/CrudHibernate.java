@@ -57,7 +57,7 @@ public class CrudHibernate {
 
 
     //lo suyo seria hacerlo con @Query...supongo
-    public List<Tarea> buscarNombre(String target) {
+    public List<Tarea> buscarPorResponsable(String target) {
         List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( responsable LIKE '%"+target+"%')").getResultList();
         return tareas;
     }

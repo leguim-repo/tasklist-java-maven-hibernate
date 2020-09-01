@@ -325,15 +325,16 @@ public class App {
                                     String usuario = TextInputDialog.showDialog(textGUI, "Usuario", "Introduzca el Usuario a buscar", "Usuario");
                                     System.out.println("usuario: " + usuario);
                                     MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Usuario: "+usuario+"\nFUNCIONALIDAD PENDIENTE", MessageDialogButton.OK);
+                                    window.setComponent(mainPanel);
                                 }
                             })
                             .addAction("Nombre", new Runnable() {
                                 @Override
                                 public void run() {
-                                    String nombre = TextInputDialog.showDialog(textGUI, "Nombre", "Introduzca el Nombre a buscar", "Nombre");
+                                    String nombre = TextInputDialog.showDialog(textGUI, "Nombre", "Introduzca el Responsable a buscar", "Nombre");
                                     System.out.println("nombre: " + nombre);
                                     //MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Nombre Responsable: "+nombre, MessageDialogButton.OK);
-                                    panelListaTareas(crud.buscarNombre(nombre), Acciones.LISTA_TAREAS);
+                                    panelListaTareas(crud.buscarPorResponsable(nombre), Acciones.LISTA_TAREAS);
                                 }
                             })
                             .addAction("Descripcion", new Runnable() {
