@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 
-import com.bootcamp.seatcode.mike.tablas.Tarea;
+import com.bootcamp.seatcode.mike.entities.Tarea;
 
 public class testTareas {
 

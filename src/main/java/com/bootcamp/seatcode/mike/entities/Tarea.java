@@ -1,4 +1,4 @@
-package com.bootcamp.seatcode.mike.tablas;
+package com.bootcamp.seatcode.mike.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

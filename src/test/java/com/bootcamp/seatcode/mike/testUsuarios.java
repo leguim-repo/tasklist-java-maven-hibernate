@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Usuario;
+import com.bootcamp.seatcode.mike.entities.Usuario;
 
 public class testUsuarios {
 

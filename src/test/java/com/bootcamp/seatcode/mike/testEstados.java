@@ -9,8 +9,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Estado;
-import com.bootcamp.seatcode.mike.tablas.EstadoEntity;
+import com.bootcamp.seatcode.mike.entities.EstadoEntity;
 
 
 public class testEstados {
@@ -20,7 +19,7 @@ public class testEstados {
 
     public static void createNewEstado(String nombre,String descripcion) {
         // creo un estado nuevo de prueba
-        Estado newState = new Estado(nombre,descripcion);
+        EstadoEntity newState = new EstadoEntity(nombre,descripcion);
         em.getTransaction().begin();
         em.persist(newState);
         em.getTransaction().commit();
@@ -31,9 +30,9 @@ public class testEstados {
         //Estados estadoParaBorrar =  manager.find(Estados.class, id); //buscas el objeto por el primary key
 
         // esta busqueda puede encontrar mas de un registro y fallar
-        Estado estadoParaBorrar = (Estado) em.createNativeQuery(
+        EstadoEntity estadoParaBorrar = (EstadoEntity) em.createNativeQuery(
                 "SELECT * FROM estados WHERE ( nombre = '"+nombre+"')",
-                Estado.class).getSingleResult();
+                EstadoEntity.class).getSingleResult();
 
         em.getTransaction().begin();
         em.remove(estadoParaBorrar);
@@ -43,9 +42,9 @@ public class testEstados {
 
     public static void getEstados() {
         // datos tabla estados
-        List<Estado> estados = (List<Estado>) em.createQuery("FROM Estado").getResultList();
+        List<EstadoEntity> estados = (List<EstadoEntity>) em.createQuery("FROM EstadoEntity").getResultList();
         System.out.println("En esta tabla hay " + estados.size() + " registros");
-        for (Estado e: estados) {
+        for (EstadoEntity e: estados) {
             System.out.println("ID: "+e.getId());
             System.out.println("Nombre Estado:"+e.getNombre());
             System.out.println("Descripcion:"+e.getDescripcion());
@@ -67,8 +66,8 @@ public class testEstados {
     public static void getEstadoHibernate() {
         CriteriaQuery<EstadoEntity> criteriaQuery = em.getCriteriaBuilder().createQuery(EstadoEntity.class);
         criteriaQuery.select(criteriaQuery.from(EstadoEntity.class));
-        List<EstadoEntity> listEstadosEncontrados = em.createQuery(criteriaQuery).getResultList();
-        MyPrint("Estados", listEstadosEncontrados);
+        List<EstadoEntity> estados = em.createQuery(criteriaQuery).getResultList();
+        MyPrint("Lista de Estados", estados);
     }
 
     public static void getFindEstadoByNombreHibernate(String criterio) {
@@ -92,7 +91,7 @@ public class testEstados {
         //getEstados();
         //deleteEstado("hola");
         //getEstados();
-        getFindEstadoByNombreHibernate("wip");
+        getFindEstadoByNombreHibernate("do");
         getEstadoHibernate();
 
         //cierro los gestores. Es obligado

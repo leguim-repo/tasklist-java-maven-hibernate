@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Login;
+import com.bootcamp.seatcode.mike.entities.Login;
 
 public class testLogin {
 

@@ -1,8 +1,8 @@
 package com.bootcamp.seatcode.mike;
 
 import com.bootcamp.seatcode.mike.crud.CrudHibernate;
-import com.bootcamp.seatcode.mike.tablas.Estado;
-import com.bootcamp.seatcode.mike.tablas.Tarea;
+import com.bootcamp.seatcode.mike.entities.EstadoEntity;
+import com.bootcamp.seatcode.mike.entities.Tarea;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
@@ -39,7 +39,7 @@ public class App {
 
     public static ComboBox<String> comboEstados() {
         ComboBox<String> comboBox = new ComboBox<String>();
-        for (Estado e: crud.readEstados()) {
+        for (EstadoEntity e: crud.findEstados()) {
            comboBox.addItem(e.getNombre());
         }
         return comboBox;

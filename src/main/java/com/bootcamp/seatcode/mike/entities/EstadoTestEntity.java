@@ -1,4 +1,4 @@
-package com.bootcamp.seatcode.mike.tablas;
+package com.bootcamp.seatcode.mike.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,16 +7,16 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "estados")
-public class EstadoEntity implements Serializable {
+public class EstadoTestEntity implements Serializable {
     @Id
     //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
     private long id;
     private String nombre;
     private String descripcion;
 
-    public EstadoEntity() { }
+    public EstadoTestEntity() { }
 
-    public EstadoEntity(String nombre, String descripcion) {
+    public EstadoTestEntity(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }

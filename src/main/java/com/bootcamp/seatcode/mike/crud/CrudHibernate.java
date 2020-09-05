@@ -1,11 +1,15 @@
 package com.bootcamp.seatcode.mike.crud;
 
-import com.bootcamp.seatcode.mike.tablas.Estado;
-import com.bootcamp.seatcode.mike.tablas.Tarea;
+import com.bootcamp.seatcode.mike.entities.EstadoEntity;
+import com.bootcamp.seatcode.mike.entities.Tarea;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.util.List;
 
@@ -51,22 +55,30 @@ public class CrudHibernate {
         this.em.getTransaction().commit();
     }
 
-    public List<Estado> readEstados() {
-        List<Estado> estados = (List<Estado>) em.createQuery("FROM Estado").getResultList();
-
-
+    public List<EstadoEntity> findEstados() {
+        //List<EstadoEntity> estados = (List<EstadoEntity>) em.createQuery("FROM EstadoEntity").getResultList();
+        CriteriaQuery<EstadoEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(EstadoEntity.class);
+        criteriaQuery.select(criteriaQuery.from(EstadoEntity.class));
+        List<EstadoEntity> estados =this.em.createQuery(criteriaQuery).getResultList();
         return estados;
     }
 
-
-    //lo suyo seria hacerlo con @Query...supongo
     public List<Tarea> buscarPorResponsable(String target) {
         List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( responsable LIKE '%"+target+"%')").getResultList();
+
         return tareas;
     }
 
-    public List<Tarea> buscarDescripcion(String target) {
-        List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( descripcion LIKE '%"+target+"%')").getResultList();
+    public List<Tarea> buscarDescripcion(String criterio) {
+        //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( descripcion LIKE '%"+target+"%')").getResultList();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Tarea> q = cb.createQuery(Tarea.class);
+        Root<Tarea> c = q.from(Tarea.class);
+        Predicate predicate = cb.like(c.<String>get("descripcion"),criterio);
+        q.where(predicate);
+
+        List<Tarea> tareas = em.createQuery(q).getResultList();
         return tareas;
     }
 

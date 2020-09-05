@@ -1,13 +1,12 @@
-package com.bootcamp.seatcode.mike.tablas;
+package com.bootcamp.seatcode.mike.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "estados")
-public class Estado {
+public class EstadoEntity {
     @Id
     //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
     private long id;
@@ -18,11 +17,11 @@ public class Estado {
     //@Column(name = "descripcion")
     private String descripcion;
 
-    public Estado() {
+    public EstadoEntity() {
 
     }
 
-    public Estado(String nombre, String descripcion) {
+    public EstadoEntity(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }

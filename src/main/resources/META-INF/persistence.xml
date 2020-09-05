@@ -8,10 +8,10 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>com.bootcamp.seatcode.mike.tablas.Estado</class>
-        <class>com.bootcamp.seatcode.mike.tablas.Login</class>
-        <class>com.bootcamp.seatcode.mike.tablas.Tarea</class>
-        <class>com.bootcamp.seatcode.mike.tablas.Usuario</class>
+        <class>com.bootcamp.seatcode.mike.entities.EstadoEntity</class>
+        <class>com.bootcamp.seatcode.mike.entities.Login</class>
+        <class>com.bootcamp.seatcode.mike.entities.Tarea</class>
+        <class>com.bootcamp.seatcode.mike.entities.Usuario</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
