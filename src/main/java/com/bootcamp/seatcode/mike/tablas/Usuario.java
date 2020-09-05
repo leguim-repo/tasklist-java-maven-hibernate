@@ -7,10 +7,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuarios {
+public class Usuario {
     @Id
     @Column(name = "id")
-    int id;
+    long id;
 
     @Column(name ="nombre")
     String nombre;
@@ -23,22 +23,22 @@ public class Usuarios {
 
     //todo mapear la relacion OneToOne con la tabla Login
 
-    public Usuarios() {
+    public Usuario() {
     }
 
 
-    public Usuarios(int id, String nombre, String apellidos, String email) {
+    public Usuario(long id, String nombre, String apellidos, String email) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

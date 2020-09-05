@@ -33,6 +33,7 @@ public class CrudHibernate {
 
     public List<Tarea> readTareas() {
         List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea").getResultList();
+
         return tareas;
     }
 
@@ -43,7 +44,7 @@ public class CrudHibernate {
     }
 
     // como manu no especifica como borrarlo usare el id
-    public void deleteTarea(int id) {
+    public void deleteTarea(Long id) {
         Tarea tareaABorrar =  em.find(Tarea.class, id); //buscas el objeto por el primary key
         this.em.getTransaction().begin();
         this.em.remove(tareaABorrar);
@@ -52,6 +53,8 @@ public class CrudHibernate {
 
     public List<Estado> readEstados() {
         List<Estado> estados = (List<Estado>) em.createQuery("FROM Estado").getResultList();
+
+
         return estados;
     }
 

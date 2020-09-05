@@ -9,13 +9,13 @@ import javax.persistence.Table;
 @Table(name = "estados")
 public class Estado {
     @Id
-    @Column(name = "id")
-    private int id;
+    //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
+    private long id;
 
-    @Column(name = "nombre")
+    //@Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "descripcion")
+    //@Column(name = "descripcion")
     private String descripcion;
 
     public Estado() {
@@ -27,11 +27,11 @@ public class Estado {
         this.descripcion = descripcion;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

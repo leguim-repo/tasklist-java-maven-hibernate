@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Login {
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name= "user")
     private String user;
@@ -25,7 +25,7 @@ public class Login {
     public Login() {
     }
 
-    public Login(int id, String user, String password, boolean active) {
+    public Login(long id, String user, String password, boolean active) {
         this.id = id;
         this.user = user;
         this.password = password;
@@ -33,11 +33,11 @@ public class Login {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

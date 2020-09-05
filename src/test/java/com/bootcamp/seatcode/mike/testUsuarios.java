@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.tablas.Usuarios;
+import com.bootcamp.seatcode.mike.tablas.Usuario;
 
 public class testUsuarios {
 
@@ -18,9 +18,9 @@ public class testUsuarios {
         manager = emf.createEntityManager();
 
         // datos tabla usuarios
-        List<Usuarios> usuarios = (List<Usuarios>) manager.createQuery("FROM Usuarios").getResultList();
+        List<Usuario> usuarios = (List<Usuario>) manager.createQuery("FROM Usuario").getResultList();
         System.out.println("En esta tabla hay " + usuarios.size() + " registros");
-        for (Usuarios e: usuarios) {
+        for (Usuario e: usuarios) {
             System.out.println("ID: "+e.getId());
             System.out.println("Nombre: "+e.getNombre());
             System.out.println("Apellidos: "+e.getApellidos());

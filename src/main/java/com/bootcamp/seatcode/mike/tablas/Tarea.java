@@ -5,16 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name = "tareas")
 public class Tarea {
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "estado")
     private String estado;
@@ -54,11 +51,11 @@ public class Tarea {
         this.fecha = Date.valueOf("2050-08-31");
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

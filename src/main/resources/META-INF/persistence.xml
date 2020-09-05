@@ -11,13 +11,15 @@
         <class>com.bootcamp.seatcode.mike.tablas.Estado</class>
         <class>com.bootcamp.seatcode.mike.tablas.Login</class>
         <class>com.bootcamp.seatcode.mike.tablas.Tarea</class>
-        <class>com.bootcamp.seatcode.mike.tablas.Usuarios</class>
+        <class>com.bootcamp.seatcode.mike.tablas.Usuario</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tasklist?serverTimezone=UTC" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="secret1234" />
+            <!-- org.hibernate.dialect.MySQL5InnoDBDialect (for this way deprecated) -->
+            <!-- org.hibernate.dialect.MySQLDialect -->
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />

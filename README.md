@@ -10,6 +10,9 @@ persistence.xml se encarga de conectarnos a la base de datos y define el conjunt
 manager.find(Estados.class, id); //busca el objeto por el primary key
 
 ```
+## Foregin Keys
+<https://thorben-janssen.com/hibernate-tips-same-primary-key-one-to-one-association/>
+
 ## Generate project with Maven
 
 ```code
