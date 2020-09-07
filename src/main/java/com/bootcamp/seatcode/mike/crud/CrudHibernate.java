@@ -36,9 +36,9 @@ public class CrudHibernate {
 
     public List<TareaEntity> getTareas() {
         //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea").getResultList();
-        CriteriaQuery<TareaEntity> criteriaQuery = em.getCriteriaBuilder().createQuery(TareaEntity.class);
+        CriteriaQuery<TareaEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(TareaEntity.class);
         criteriaQuery.select(criteriaQuery.from(TareaEntity.class));
-        List<TareaEntity> tareas = em.createQuery(criteriaQuery).getResultList();
+        List<TareaEntity> tareas = this.em.createQuery(criteriaQuery).getResultList();
 
         return tareas;
     }
@@ -51,7 +51,7 @@ public class CrudHibernate {
 
     // como manu no especifica como borrarlo usare el id
     public void deleteTarea(Long id) {
-        TareaEntity tareaABorrar =  em.find(TareaEntity.class, id); //buscas el objeto por el primary key
+        TareaEntity tareaABorrar = this.em.find(TareaEntity.class, id); //buscas el objeto por el primary key
         this.em.getTransaction().begin();
         this.em.remove(tareaABorrar);
         this.em.getTransaction().commit();
@@ -67,23 +67,23 @@ public class CrudHibernate {
 
     public List<TareaEntity> findForResponsable(String criterio) {
         //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( responsable LIKE '%"+target+"%')").getResultList();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
         Root<TareaEntity> c = q.from(TareaEntity.class);
         Predicate predicate = cb.like(c.<String>get("responsable"),"%"+criterio+"%");
         q.where(predicate);
-        List<TareaEntity> tareas = em.createQuery(q).getResultList();
+        List<TareaEntity> tareas = this.em.createQuery(q).getResultList();
         return tareas;
     }
 
     public List<TareaEntity> findForDescripcion(String criterio) {
         //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( descripcion LIKE '%"+target+"%')").getResultList();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
         Root<TareaEntity> c = q.from(TareaEntity.class);
         Predicate predicate = cb.like(c.<String>get("descripcion"),"%"+criterio+"%");
         q.where(predicate);
-        List<TareaEntity> tareas = em.createQuery(q).getResultList();
+        List<TareaEntity> tareas = this.em.createQuery(q).getResultList();
         return tareas;
     }
 
