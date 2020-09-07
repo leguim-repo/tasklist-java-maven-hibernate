@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+
 public class CrudHibernate {
     private static EntityManager em;
     private static EntityManagerFactory emf;
@@ -35,7 +36,6 @@ public class CrudHibernate {
     }
 
     public List<TareaEntity> getTareas() {
-        //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea").getResultList();
         CriteriaQuery<TareaEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(TareaEntity.class);
         criteriaQuery.select(criteriaQuery.from(TareaEntity.class));
         List<TareaEntity> tareas = this.em.createQuery(criteriaQuery).getResultList();
@@ -58,7 +58,6 @@ public class CrudHibernate {
     }
 
     public List<EstadoEntity> getEstados() {
-        //List<EstadoEntity> estados = (List<EstadoEntity>) em.createQuery("FROM EstadoEntity").getResultList();
         CriteriaQuery<EstadoEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(EstadoEntity.class);
         criteriaQuery.select(criteriaQuery.from(EstadoEntity.class));
         List<EstadoEntity> estados =this.em.createQuery(criteriaQuery).getResultList();
@@ -66,7 +65,6 @@ public class CrudHibernate {
     }
 
     public List<TareaEntity> findForResponsable(String criterio) {
-        //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( responsable LIKE '%"+target+"%')").getResultList();
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
         Root<TareaEntity> c = q.from(TareaEntity.class);
@@ -77,7 +75,6 @@ public class CrudHibernate {
     }
 
     public List<TareaEntity> findForDescripcion(String criterio) {
-        //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( descripcion LIKE '%"+target+"%')").getResultList();
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
         Root<TareaEntity> c = q.from(TareaEntity.class);

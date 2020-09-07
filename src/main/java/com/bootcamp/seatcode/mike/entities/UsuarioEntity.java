@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Table(name = "usuarios")
 public class UsuarioEntity implements Serializable {
     @Id
-    @Column(name = "id")
     long id;
     String nombre;
     String apellidos;

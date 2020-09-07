@@ -11,7 +11,6 @@ import java.sql.Date;
 @Table(name = "tareas")
 public class TareaEntity implements Serializable {
     @Id
-    @Column(name = "id")
     private long id;
     private String estado;
     private String titulo;
