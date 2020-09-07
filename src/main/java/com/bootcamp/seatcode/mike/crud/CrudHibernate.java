@@ -65,7 +65,7 @@ public class CrudHibernate {
         return estados;
     }
 
-    public List<TareaEntity> buscarPorResponsable(String criterio) {
+    public List<TareaEntity> findForResponsable(String criterio) {
         //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( responsable LIKE '%"+target+"%')").getResultList();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
@@ -76,7 +76,7 @@ public class CrudHibernate {
         return tareas;
     }
 
-    public List<TareaEntity> buscarDescripcion(String criterio) {
+    public List<TareaEntity> findForDescripcion(String criterio) {
         //List<Tarea> tareas = (List<Tarea>) em.createQuery("FROM Tarea WHERE ( descripcion LIKE '%"+target+"%')").getResultList();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);

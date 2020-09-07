@@ -11,9 +11,7 @@ public class EstadoEntity implements Serializable {
     @Id
     //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
     private long id;
-
     private String nombre;
-
     private String descripcion;
 
     public EstadoEntity() {

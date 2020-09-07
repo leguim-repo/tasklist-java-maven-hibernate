@@ -334,7 +334,7 @@ public class App {
                                     String nombre = TextInputDialog.showDialog(textGUI, "Nombre", "Introduzca el Responsable a buscar", "Nombre");
                                     System.out.println("nombre: " + nombre);
                                     //MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Nombre Responsable: "+nombre, MessageDialogButton.OK);
-                                    panelListaTareas(crud.buscarPorResponsable(nombre), Acciones.LISTA_TAREAS);
+                                    panelListaTareas(crud.findForResponsable(nombre), Acciones.LISTA_TAREAS);
                                 }
                             })
                             .addAction("Descripcion", new Runnable() {
@@ -343,7 +343,7 @@ public class App {
                                     String descripcion = TextInputDialog.showDialog(textGUI, "Descripcion", "Introduzca Descripcion a buscar", "Descripcion");
                                     System.out.println("descripcion: " + descripcion);
                                     //MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Descripcion: "+descripcion, MessageDialogButton.OK);
-                                    panelListaTareas(crud.buscarDescripcion(descripcion), Acciones.LISTA_TAREAS);
+                                    panelListaTareas(crud.findForDescripcion(descripcion), Acciones.LISTA_TAREAS);
                                 }
                             })
                             .build()

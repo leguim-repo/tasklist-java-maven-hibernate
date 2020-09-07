@@ -10,16 +10,9 @@ import java.io.Serializable;
 @Table(name = "login")
 public class LoginEntity implements Serializable {
     @Id
-    //@Column(name = "id")
     private long id;
-
-    //@Column(name= "user")
     private String user;
-
-    //@Column(name= "password")
     private String password;
-
-    
     @Column(columnDefinition = "TINYINT(1))")
     private boolean active;
 

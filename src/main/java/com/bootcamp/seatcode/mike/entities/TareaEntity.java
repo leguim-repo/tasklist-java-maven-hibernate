@@ -13,20 +13,10 @@ public class TareaEntity implements Serializable {
     @Id
     @Column(name = "id")
     private long id;
-
-    //@Column(name = "estado")
     private String estado;
-
-    //@Column(name = "titulo")
     private String titulo;
-
-    //@Column(name = "descripcion")
     private String descripcion;
-
-    //@Column(name = "responsable")
     private String responsable;
-
-    //@Column(name = "fecha")
     private java.sql.Date fecha;
 
     public TareaEntity() {

@@ -12,14 +12,8 @@ public class UsuarioEntity implements Serializable {
     @Id
     @Column(name = "id")
     long id;
-
-    @Column(name ="nombre")
     String nombre;
-
-    @Column(name ="apellidos")
     String apellidos;
-
-    @Column(name ="email")
     String email;
 
     //todo mapear la relacion OneToOne con la tabla Login
