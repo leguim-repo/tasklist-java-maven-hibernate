@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class UsuarioEntity implements Serializable {
     @Id
     @Column(name = "id")
     long id;
@@ -23,11 +24,11 @@ public class Usuario {
 
     //todo mapear la relacion OneToOne con la tabla Login
 
-    public Usuario() {
+    public UsuarioEntity() {
     }
 
 
-    public Usuario(long id, String nombre, String apellidos, String email) {
+    public UsuarioEntity(long id, String nombre, String apellidos, String email) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;

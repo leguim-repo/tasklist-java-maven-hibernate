@@ -3,18 +3,17 @@ package com.bootcamp.seatcode.mike.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "estados")
-public class EstadoEntity {
+public class EstadoEntity implements Serializable {
     @Id
     //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
     private long id;
 
-    //@Column(name = "nombre")
     private String nombre;
 
-    //@Column(name = "descripcion")
     private String descripcion;
 
     public EstadoEntity() {

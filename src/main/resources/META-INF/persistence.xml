@@ -9,9 +9,9 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.bootcamp.seatcode.mike.entities.EstadoEntity</class>
-        <class>com.bootcamp.seatcode.mike.entities.Login</class>
-        <class>com.bootcamp.seatcode.mike.entities.Tarea</class>
-        <class>com.bootcamp.seatcode.mike.entities.Usuario</class>
+        <class>com.bootcamp.seatcode.mike.entities.LoginEntity</class>
+        <class>com.bootcamp.seatcode.mike.entities.TareaEntity</class>
+        <class>com.bootcamp.seatcode.mike.entities.UsuarioEntity</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
@@ -24,6 +24,12 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="validate" />
+            <!--
+            create - creates the schema, destroying previous data
+            update - update existing schema
+            validate - validate the schema, makes no changes to the database
+            create-drop -  create the schema with destroying the data previously present(if there). It also drop the database schema when the SessionFactory is closed.
+            -->
         </properties>
     </persistence-unit>
 

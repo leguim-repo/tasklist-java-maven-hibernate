@@ -4,28 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "login")
-public class Login {
+public class LoginEntity implements Serializable {
     @Id
-    @Column(name = "id")
+    //@Column(name = "id")
     private long id;
 
-    @Column(name= "user")
+    //@Column(name= "user")
     private String user;
 
-    @Column(name= "password")
+    //@Column(name= "password")
     private String password;
 
     
-    @Column(name = "active", columnDefinition = "TINYINT(1))")
+    @Column(columnDefinition = "TINYINT(1))")
     private boolean active;
 
-    public Login() {
+    public LoginEntity() {
     }
 
-    public Login(long id, String user, String password, boolean active) {
+    public LoginEntity(long id, String user, String password, boolean active) {
         this.id = id;
         this.user = user;
         this.password = password;

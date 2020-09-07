@@ -4,35 +4,36 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "tareas")
-public class Tarea {
+public class TareaEntity implements Serializable {
     @Id
     @Column(name = "id")
     private long id;
 
-    @Column(name = "estado")
+    //@Column(name = "estado")
     private String estado;
 
-    @Column(name = "titulo")
+    //@Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "descripcion")
+    //@Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "responsable")
+    //@Column(name = "responsable")
     private String responsable;
 
-    @Column(name = "fecha")
+    //@Column(name = "fecha")
     private java.sql.Date fecha;
 
-    public Tarea() {
+    public TareaEntity() {
 
     }
 
-    public Tarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha)  {
+    public TareaEntity(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha)  {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;

@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-import com.bootcamp.seatcode.mike.entities.Login;
+import com.bootcamp.seatcode.mike.entities.LoginEntity;
 
 public class testLogin {
 
@@ -18,9 +18,9 @@ public class testLogin {
         manager = emf.createEntityManager();
 
         // datos tabla login
-        List<Login> login = (List<Login>) manager.createQuery("FROM Login").getResultList();
+        List<LoginEntity> login = (List<LoginEntity>) manager.createQuery("FROM LoginEntity").getResultList();
         System.out.println("En esta tabla hay " + login.size() + " registros");
-        for (Login e: login) {
+        for (LoginEntity e: login) {
             System.out.println("ID: "+e.getId());
             System.out.println("Usuario: "+e.getUser());
             System.out.println("Password: "+e.getPassword());

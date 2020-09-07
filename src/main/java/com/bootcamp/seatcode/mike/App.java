@@ -2,7 +2,7 @@ package com.bootcamp.seatcode.mike;
 
 import com.bootcamp.seatcode.mike.crud.CrudHibernate;
 import com.bootcamp.seatcode.mike.entities.EstadoEntity;
-import com.bootcamp.seatcode.mike.entities.Tarea;
+import com.bootcamp.seatcode.mike.entities.TareaEntity;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
@@ -39,13 +39,13 @@ public class App {
 
     public static ComboBox<String> comboEstados() {
         ComboBox<String> comboBox = new ComboBox<String>();
-        for (EstadoEntity e: crud.findEstados()) {
+        for (EstadoEntity e: crud.getEstados()) {
            comboBox.addItem(e.getNombre());
         }
         return comboBox;
     }
 
-    public static Panel panelCambiarEstado(final Acciones accion, final Tarea tarea) {
+    public static Panel panelCambiarEstado(final Acciones accion, final TareaEntity tarea) {
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -96,7 +96,7 @@ public class App {
         return panelMain;
     }
 
-    public static Panel panelTarea(final Acciones accion, final Tarea tarea){
+    public static Panel panelTarea(final Acciones accion, final TareaEntity tarea){
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -180,9 +180,9 @@ public class App {
         return panelMain;
     }
 
-    public static Tarea row2Tarea(List<String> row) {
+    public static TareaEntity row2Tarea(List<String> row) {
 
-        Tarea tarea = new Tarea();
+        TareaEntity tarea = new TareaEntity();
         tarea.setId(Integer.parseInt(row.get(0)));
         tarea.setEstado(row.get(1));
         tarea.setTitulo(row.get(2));
@@ -194,19 +194,19 @@ public class App {
     }
 
 
-    public static void panelListaTareas(List<Tarea> tareas, final Acciones accion)  {
+    public static void panelListaTareas(List<TareaEntity> tareas, final Acciones accion)  {
         final Panel panelTabla = new Panel();
         panelTabla.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
         final Table<String> tabla = new Table<String>("ID", "Estado", "Titulo", "Descripcion", "Responsable", "Fecha");
-        for (Tarea e: tareas) {
+        for (TareaEntity e: tareas) {
             tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(),  e.getResponsable(), String.valueOf(e.getFecha()));
         }
 
         tabla.setSelectAction(new Runnable() {
             @Override
             public void run() {
-                Tarea tarea;
+                TareaEntity tarea;
                 tarea= row2Tarea(tabla.getTableModel().getRow(tabla.getSelectedRow()));
                 System.out.println("Tarea objetivo:"+tarea.toString());
                 switch (accion) {
@@ -278,14 +278,14 @@ public class App {
             dialogsListBox.addItem("Ver Lista de Tareas", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(crud.readTareas(), Acciones.LISTA_TAREAS);
+                    panelListaTareas(crud.getTareas(), Acciones.LISTA_TAREAS);
                 }
             });
 
             dialogsListBox.addItem("Crear Nueva Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    Tarea tareavacia = new Tarea();
+                    TareaEntity tareavacia = new TareaEntity();
                     tareavacia.clear();
                     window.setComponent(panelTarea(Acciones.CREAR_TAREA, tareavacia));
                 }
@@ -294,7 +294,7 @@ public class App {
             dialogsListBox.addItem("Cambiar Estado Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(crud.readTareas(), Acciones.CAMBIAR_ESTADO);
+                    panelListaTareas(crud.getTareas(), Acciones.CAMBIAR_ESTADO);
 
                 }
             });
@@ -302,14 +302,14 @@ public class App {
             dialogsListBox.addItem("Editar Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(crud.readTareas(), Acciones.EDITAR_TAREA);
+                    panelListaTareas(crud.getTareas(), Acciones.EDITAR_TAREA);
                 }
             });
 
             dialogsListBox.addItem("Borrar Tarea", new Runnable() {
                 @Override
                 public void run() {
-                    panelListaTareas(crud.readTareas(), Acciones.BORRAR_TAREA);
+                    panelListaTareas(crud.getTareas(), Acciones.BORRAR_TAREA);
                 }
             });
 
@@ -324,11 +324,11 @@ public class App {
                                 public void run() {
                                     String usuario = TextInputDialog.showDialog(textGUI, "Usuario", "Introduzca el Usuario a buscar", "Usuario");
                                     System.out.println("usuario: " + usuario);
-                                    MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Usuario: "+usuario+"\nFUNCIONALIDAD PENDIENTE", MessageDialogButton.OK);
+                                    MessageDialog.showMessageDialog(textGUI, "Busqueda por...", "Usuario: "+usuario+"\nFUNCIONALIDAD PENDIENTE\nEn PDF no queda claro", MessageDialogButton.OK);
                                     window.setComponent(mainPanel);
                                 }
                             })
-                            .addAction("Nombre", new Runnable() {
+                            .addAction("Responsable", new Runnable() {
                                 @Override
                                 public void run() {
                                     String nombre = TextInputDialog.showDialog(textGUI, "Nombre", "Introduzca el Responsable a buscar", "Nombre");
