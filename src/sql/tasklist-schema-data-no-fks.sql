@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `tasklist` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `tasklist`;
 -- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: tasklist
@@ -23,11 +25,11 @@ DROP TABLE IF EXISTS `estados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estados` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `descripcion` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,12 +50,12 @@ DROP TABLE IF EXISTS `login`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `login` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL,
   `user` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,14 +76,14 @@ DROP TABLE IF EXISTS `tareas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tareas` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `estado` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `titulo` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `descripcion` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `responsable` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +92,7 @@ CREATE TABLE `tareas` (
 
 LOCK TABLES `tareas` WRITE;
 /*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
-INSERT INTO `tareas` VALUES (1,'WIP','Proyecto Task List','Estado gobal del proyecto','Mike','2020-08-31'),(2,'WIP','Introducir Datos','Introduccion datos en la BD de Task List','mike','2020-08-31'),(3,'Done','Diseño GUI','Pensar como sera el GUI','Mike','2020-08-31'),(4,'Done','Modulo de Test Basico','Modulo para probar si conecto con la BD via hibernate','Mike','2020-08-31'),(8,'Done','Crear BD','Crear BD con las tablas basicas','Mike','2020-08-31'),(9,'Test','Logica del proyecto','Logica de funcionamiento del proyecto','Mike','2020-08-31'),(10,'Done','Como hacer un update','Funcion update del crud','Mike','2020-08-23'),(11,'Done','Crear CRUD','Crear una clase CrudHibernate para la gestion de los datos','Mike','2020-08-23'),(12,'To Do','Gestion de Usuarios','Funcionalidad para gestionar los usuarios','Nina','2020-08-31'),(14,'To Do','Funcionalidad de Login','Que la aplicacion tenga Login y Password de usuario','Nina','2020-08-31'),(15,'To Do','Relacionar tablas','Crear realaciones entre las tablas','Nina','2020-08-31');
+INSERT INTO `tareas` VALUES (1,'Test','Proyecto Task List','Estado gobal del proyecto','Mike','2020-08-31'),(2,'To Do','Introducir Datos','Introduccion datos en la BD de Task List','Mike','2020-08-31'),(3,'To Do','Diseño GUI','Pensar como sera el GUI','Nina','2020-08-31'),(4,'WIP','Modulo de Test Basico','Modulo para probar si conecto con la BD via hibernate','Mike','2020-08-31'),(8,'Done','Crear BD','Crear BD con las tablas basicas','Mike','2020-08-31'),(9,'Test','Logica del proyecto','Logica de funcionamiento del proyecto','Mike','2020-08-31'),(10,'WIP','Como hacer un update','Funcion update del crud','Mike','2020-08-23'),(11,'Done','Crear CRUD','Crear una clase CrudHibernate para la gestion de los datos','Mike','2020-09-15'),(12,'To Do','Gestion de Usuarios','Funcionalidad para gestionar los usuarios','Nina','2020-08-31'),(14,'To Do','Funcionalidad de Login','Que la aplicacion tenga Login y Password de usuario','Nina','2020-08-31'),(15,'To Do','Relacionar tablas','Crear realaciones entre las tablas','Nina','2020-08-31'),(16,'To Do','Transformar a hibernate','Es decir nada de sentencias SQL hardcodeadas','Mike','2020-09-07');
 /*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,15 +104,12 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `apellidos` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  `login_id` int NOT NULL,
-  PRIMARY KEY (`id`,`login_id`),
-  KEY `fk_usuarios_login_idx` (`login_id`),
-  CONSTRAINT `fk_usuarios_login` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +118,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'mike','hammer','mike.hammer@gmail.com',0);
+INSERT INTO `usuarios` VALUES (1,'mike','hammer','mike.hammer@gmail.com');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -132,4 +131,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-23 20:01:29
+-- Dump completed on 2020-09-07  8:34:29
