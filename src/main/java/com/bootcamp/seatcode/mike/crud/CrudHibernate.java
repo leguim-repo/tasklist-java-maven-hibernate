@@ -1,7 +1,9 @@
 package com.bootcamp.seatcode.mike.crud;
 
 import com.bootcamp.seatcode.mike.entities.EstadoEntity;
+import com.bootcamp.seatcode.mike.entities.LoginEntity;
 import com.bootcamp.seatcode.mike.entities.TareaEntity;
+import com.bootcamp.seatcode.mike.entities.UsuarioEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -20,15 +22,19 @@ import java.util.List;
 public class CrudHibernate {
     private static EntityManager em;//TODO Para eliminar al usar Full Hibernate
     private static EntityManagerFactory emf;//TODO Para eliminar al usar Full Hibernate
-    private static SessionFactory factory;
+    private static SessionFactory dbConnection;
 
     public CrudHibernate() {
         // Configuracion de Full Hibernate
         try {
             Configuration config = new Configuration();
+            //Registro de entidades
             config.addAnnotatedClass(EstadoEntity.class);
+            config.addAnnotatedClass(TareaEntity.class);
+            config.addAnnotatedClass(LoginEntity.class);
+            config.addAnnotatedClass(UsuarioEntity.class);
             config.configure();
-            factory = config.buildSessionFactory();
+            dbConnection = config.buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
@@ -54,10 +60,26 @@ public class CrudHibernate {
         this.em.getTransaction().commit();
     }
 
+    public List<TareaEntity> getTareasH() {
+        //TODO pasar el try para arriba -> throws Throwable
+        List<TareaEntity> tareas = null;
+        Session session = this.dbConnection.openSession();
+        try {
+            CriteriaQuery<TareaEntity> cq = session.getCriteriaBuilder().createQuery(TareaEntity.class);
+            cq.select(cq.from(TareaEntity.class));
+            tareas = session.createQuery(cq).getResultList();
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return tareas;
+    }
+
     public List<TareaEntity> getTareas() {
         //TODO pasar el try para arriba -> throws Throwable
         List<TareaEntity> tareas = null;
-        Session session = factory.openSession();
+        Session session = this.dbConnection.openSession();
         try {
             CriteriaQuery<TareaEntity> cq = session.getCriteriaBuilder().createQuery(TareaEntity.class);
             cq.select(cq.from(TareaEntity.class));
@@ -93,7 +115,7 @@ public class CrudHibernate {
     public List<EstadoEntity> getEstados() {
         //TODO pasar el try para arriba -> throws Throwable
         List<EstadoEntity> estados = null;
-        Session session = factory.openSession();
+        Session session = this.dbConnection.openSession();
         try {
             CriteriaQuery<EstadoEntity> cq = session.getCriteriaBuilder().createQuery(EstadoEntity.class);
             cq.select(cq.from(EstadoEntity.class));
@@ -135,7 +157,7 @@ public class CrudHibernate {
 
     public void close() {
         //Cierre conexion a la BD
-        this.factory.close();
+        this.dbConnection.close();
         //TODO Para eliminar al usar Full Hibernate
         this.emf.close();
         this.em.close();

@@ -1,14 +1,14 @@
 package com.bootcamp.seatcode.mike.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "estados")
 public class EstadoEntity implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
     private long id;
     private String nombre;

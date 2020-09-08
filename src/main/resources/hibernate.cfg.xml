@@ -28,6 +28,8 @@
         <property name = "hibernate.connection.password">
             secret1234
         </property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
 
 
     </session-factory>

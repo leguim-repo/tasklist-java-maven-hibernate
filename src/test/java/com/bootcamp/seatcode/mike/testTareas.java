@@ -50,9 +50,7 @@ public class testTareas {
         // datos tabla tareas
         List<TareaEntity> tareas = (List<TareaEntity>) em.createQuery("FROM TareaEntity").getResultList();
 
-
         MyPrint("Lista Tareas", tareas);
-        ;
         MyPrint("Busqueda Tareas", buscarDescripcion("%in%"));
 
         em.close();
