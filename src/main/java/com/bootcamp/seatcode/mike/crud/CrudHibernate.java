@@ -175,6 +175,23 @@ public class CrudHibernate {
     }
 
     public List<TareaEntity> findForResponsable(String criterio) {
+        //TODO pasar el try para arriba -> throws Throwable
+        List<TareaEntity> tareas = null;
+        Session session = this.dbConnection.openSession();
+        try {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
+            Root<TareaEntity> c = q.from(TareaEntity.class);
+            Predicate predicate = cb.like(c.<String>get("responsable"),"%"+criterio+"%");
+            q.where(predicate);
+            Query<TareaEntity> query = session.createQuery(q);
+            tareas = query.getResultList();
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        //TODO Para eliminar al usar Full Hibernate
         /*
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
@@ -185,12 +202,13 @@ public class CrudHibernate {
 
         return tareas;
         */
-        return null;
+        return tareas;
     }
 
     public List<TareaEntity> findForDescripcion(String criterio) {
-        Session session = this.dbConnection.openSession();
+        //TODO pasar el try para arriba -> throws Throwable
         List<TareaEntity> tareas = null;
+        Session session = this.dbConnection.openSession();
         try {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
