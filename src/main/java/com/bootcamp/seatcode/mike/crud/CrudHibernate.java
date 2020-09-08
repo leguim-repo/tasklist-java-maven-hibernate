@@ -6,6 +6,7 @@ import com.bootcamp.seatcode.mike.entities.TareaEntity;
 import com.bootcamp.seatcode.mike.entities.UsuarioEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
@@ -55,26 +56,27 @@ public class CrudHibernate {
     }
 
     public void createTarea(TareaEntity nuevaTarea) {
-        this.em.getTransaction().begin();
-        this.em.persist(nuevaTarea);
-        this.em.getTransaction().commit();
-    }
-
-    public List<TareaEntity> getTareasH() {
         //TODO pasar el try para arriba -> throws Throwable
-        List<TareaEntity> tareas = null;
         Session session = this.dbConnection.openSession();
+        Transaction transaction = null;
         try {
-            CriteriaQuery<TareaEntity> cq = session.getCriteriaBuilder().createQuery(TareaEntity.class);
-            cq.select(cq.from(TareaEntity.class));
-            tareas = session.createQuery(cq).getResultList();
+            transaction = session.beginTransaction();
+            session.persist(nuevaTarea);
+            transaction.commit();
         }catch (Throwable ex) {
+            if (transaction!=null) transaction.rollback();
             ex.printStackTrace();
         } finally {
             session.close();
         }
-        return tareas;
+        //TODO Para eliminar al usar Full Hibernate
+        /*
+        this.em.getTransaction().begin();
+        this.em.persist(nuevaTarea);
+        this.em.getTransaction().commit();
+         */
     }
+
 
     public List<TareaEntity> getTareas() {
         //TODO pasar el try para arriba -> throws Throwable
