@@ -12,6 +12,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+// TODO tirar de opensession
+// Meter spring para la tag @Repository
 
 public class CrudHibernate {
     private static EntityManager em;

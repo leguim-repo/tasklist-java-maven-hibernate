@@ -10,12 +10,17 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 import com.bootcamp.seatcode.mike.entities.EstadoEntity;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 
 public class testEstados {
 
     private static EntityManager em;
     private static EntityManagerFactory emf;
+    private static SessionFactory factory;
+
 
     public static void createNewEstado(String nombre,String descripcion) {
         // creo un estado nuevo de prueba
@@ -83,19 +88,53 @@ public class testEstados {
     }
 
     public static void main(String[] args) {
-        /*Creamos el gestor de persistencia (EM)*/
+        /*
+        // Creamos el gestor de persistencia (EM)
         emf = Persistence.createEntityManagerFactory("TaskListPersistence");
         em = emf.createEntityManager();
-
         //createNewEstado("hola","aqui va la descripcion del estado");
         //getEstados();
         //deleteEstado("hola");
         //getEstados();
         getFindEstadoByNombreHibernate("do");
         getEstadoHibernate();
+        */
+
+
+        // Test para usar Full Hibernate
+        // Configuracion de Full Hibernate tiene que ir al contructor de crudHibernate
+        try {
+            Configuration config = new Configuration();
+            config.addAnnotatedClass(EstadoEntity.class);
+            config.configure();
+            factory = config.buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+
+        // abrimos la session
+        Session session = factory.openSession();
+
+        try {
+            CriteriaQuery<EstadoEntity> cq = session.getCriteriaBuilder().createQuery(EstadoEntity.class);
+            cq.select(cq.from(EstadoEntity.class));
+            List<EstadoEntity> estados = session.createQuery(cq).getResultList();
+            MyPrint("Listado de estados via HIBERNATE A FULL",estados);
+
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        session.close();
+
 
         //cierro los gestores. Es obligado
+        /*
         em.close();
         emf.close();
+        */
     }
 }
