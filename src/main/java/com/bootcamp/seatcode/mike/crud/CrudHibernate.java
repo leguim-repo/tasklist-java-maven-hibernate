@@ -55,10 +55,24 @@ public class CrudHibernate {
     }
 
     public List<TareaEntity> getTareas() {
+        //TODO pasar el try para arriba -> throws Throwable
+        List<TareaEntity> tareas = null;
+        Session session = factory.openSession();
+        try {
+            CriteriaQuery<TareaEntity> cq = session.getCriteriaBuilder().createQuery(TareaEntity.class);
+            cq.select(cq.from(TareaEntity.class));
+            tareas = session.createQuery(cq).getResultList();
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        //TODO Para eliminar al usar Full Hibernate
+        /*
         CriteriaQuery<TareaEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(TareaEntity.class);
         criteriaQuery.select(criteriaQuery.from(TareaEntity.class));
         List<TareaEntity> tareas = this.em.createQuery(criteriaQuery).getResultList();
-
+        */
         return tareas;
     }
 
@@ -77,6 +91,7 @@ public class CrudHibernate {
     }
 
     public List<EstadoEntity> getEstados() {
+        //TODO pasar el try para arriba -> throws Throwable
         List<EstadoEntity> estados = null;
         Session session = factory.openSession();
         try {
