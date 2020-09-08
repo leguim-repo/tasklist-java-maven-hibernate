@@ -47,7 +47,7 @@ public class CrudHibernate {
 
 
     }
-
+    //TODO Clean Code
     public void createTarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha) {
         TareaEntity nuevaTarea = new TareaEntity(titulo, descripcion, estado, responsable, fecha);
         this.em.getTransaction().begin();
@@ -101,9 +101,26 @@ public class CrudHibernate {
     }
 
     public void updateTarea(TareaEntity tarea) {
+        //TODO pasar el try para arriba -> throws Throwable
+        Session session = this.dbConnection.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(tarea);
+            transaction.commit();
+        }catch (Throwable ex) {
+            if (transaction!=null) transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        //TODO Para eliminar al usar Full Hibernate
+        /*
         this.em.getTransaction().begin();
         this.em.merge(tarea);
         this.em.getTransaction().commit();
+        */
+        
     }
 
     // como manu no especifica como borrarlo usare el id
