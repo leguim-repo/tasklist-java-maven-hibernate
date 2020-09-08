@@ -125,10 +125,28 @@ public class CrudHibernate {
 
     // como manu no especifica como borrarlo usare el id
     public void deleteTarea(Long id) {
+        //TODO pasar el try para arriba -> throws Throwable
+        Session session = this.dbConnection.openSession();
+        Transaction transaction = null;
+        try {
+            TareaEntity tareaABorrar = session.load(TareaEntity.class, id);
+            transaction = session.beginTransaction();
+            session.delete(tareaABorrar);
+            transaction.commit();
+        }catch (Throwable ex) {
+            if (transaction!=null) transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        //TODO Para eliminar al usar Full Hibernate
+        /*
         TareaEntity tareaABorrar = this.em.find(TareaEntity.class, id); //buscas el objeto por el primary key
         this.em.getTransaction().begin();
         this.em.remove(tareaABorrar);
         this.em.getTransaction().commit();
+
+         */
     }
 
     public List<EstadoEntity> getEstados() {
