@@ -120,7 +120,7 @@ public class CrudHibernate {
         this.em.merge(tarea);
         this.em.getTransaction().commit();
         */
-        
+
     }
 
     // como manu no especifica como borrarlo usare el id
