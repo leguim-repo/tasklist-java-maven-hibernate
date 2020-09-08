@@ -2,6 +2,9 @@ package com.bootcamp.seatcode.mike.crud;
 
 import com.bootcamp.seatcode.mike.entities.EstadoEntity;
 import com.bootcamp.seatcode.mike.entities.TareaEntity;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,16 +15,30 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-// TODO tirar de opensession
 // Meter spring para la tag @Repository
 
 public class CrudHibernate {
-    private static EntityManager em;
-    private static EntityManagerFactory emf;
+    private static EntityManager em;//TODO Para eliminar al usar Full Hibernate
+    private static EntityManagerFactory emf;//TODO Para eliminar al usar Full Hibernate
+    private static SessionFactory factory;
 
     public CrudHibernate() {
+        // Configuracion de Full Hibernate
+        try {
+            Configuration config = new Configuration();
+            config.addAnnotatedClass(EstadoEntity.class);
+            config.configure();
+            factory = config.buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+
+        //TODO Para eliminar al usar Full Hibernate
         this.emf = Persistence.createEntityManagerFactory("TaskListPersistence");
         this.em = this.emf.createEntityManager();
+
+
     }
 
     public void createTarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha) {
@@ -60,9 +77,24 @@ public class CrudHibernate {
     }
 
     public List<EstadoEntity> getEstados() {
+        List<EstadoEntity> estados = null;
+        Session session = factory.openSession();
+        try {
+            CriteriaQuery<EstadoEntity> cq = session.getCriteriaBuilder().createQuery(EstadoEntity.class);
+            cq.select(cq.from(EstadoEntity.class));
+            estados = session.createQuery(cq).getResultList();
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        //TODO Para eliminar al usar Full Hibernate
+        /*
         CriteriaQuery<EstadoEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(EstadoEntity.class);
         criteriaQuery.select(criteriaQuery.from(EstadoEntity.class));
         List<EstadoEntity> estados =this.em.createQuery(criteriaQuery).getResultList();
+        */
+
         return estados;
     }
 
@@ -87,6 +119,9 @@ public class CrudHibernate {
     }
 
     public void close() {
+        //Cierre conexion a la BD
+        this.factory.close();
+        //TODO Para eliminar al usar Full Hibernate
         this.emf.close();
         this.em.close();
     }
