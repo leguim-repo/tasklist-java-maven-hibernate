@@ -10,8 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -21,8 +19,6 @@ import java.util.List;
 
 
 public class CrudHibernate {
-    //private static EntityManager em;//TODO Para eliminar al usar Full Hibernate
-    //private static EntityManagerFactory emf;//TODO Para eliminar al usar Full Hibernate
     private static SessionFactory dbConnection;
 
     public CrudHibernate() {
@@ -40,25 +36,7 @@ public class CrudHibernate {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-
-        //TODO Para eliminar al usar Full Hibernate
-        //this.emf = Persistence.createEntityManagerFactory("TaskListPersistence");
-        //this.em = this.emf.createEntityManager();
-
-
     }
-    //TODO Clean Code
-    public void createTarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha) {
-        //TODO Metodo a eliminar al usar Full Hibernate
-        System.out.println("No deberias llegar aqui");
-        /*
-        TareaEntity nuevaTarea = new TareaEntity(titulo, descripcion, estado, responsable, fecha);
-        this.em.getTransaction().begin();
-        this.em.persist(nuevaTarea);
-        this.em.getTransaction().commit();
-        */
-    }
-
 
     public void createTarea(TareaEntity nuevaTarea) {
         //TODO pasar el try para arriba -> throws Throwable
@@ -74,12 +52,6 @@ public class CrudHibernate {
         } finally {
             session.close();
         }
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        this.em.getTransaction().begin();
-        this.em.persist(nuevaTarea);
-        this.em.getTransaction().commit();
-         */
     }
 
 
@@ -96,12 +68,7 @@ public class CrudHibernate {
         } finally {
             session.close();
         }
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        CriteriaQuery<TareaEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(TareaEntity.class);
-        criteriaQuery.select(criteriaQuery.from(TareaEntity.class));
-        List<TareaEntity> tareas = this.em.createQuery(criteriaQuery).getResultList();
-        */
+
         return tareas;
     }
 
@@ -119,13 +86,6 @@ public class CrudHibernate {
         } finally {
             session.close();
         }
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        this.em.getTransaction().begin();
-        this.em.merge(tarea);
-        this.em.getTransaction().commit();
-        */
-
     }
 
     // como manu no especifica como borrarlo usare el id
@@ -144,14 +104,7 @@ public class CrudHibernate {
         } finally {
             session.close();
         }
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        TareaEntity tareaABorrar = this.em.find(TareaEntity.class, id); //buscas el objeto por el primary key
-        this.em.getTransaction().begin();
-        this.em.remove(tareaABorrar);
-        this.em.getTransaction().commit();
 
-         */
     }
 
     public List<EstadoEntity> getEstados() {
@@ -167,12 +120,6 @@ public class CrudHibernate {
         } finally {
             session.close();
         }
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        CriteriaQuery<EstadoEntity> criteriaQuery = this.em.getCriteriaBuilder().createQuery(EstadoEntity.class);
-        criteriaQuery.select(criteriaQuery.from(EstadoEntity.class));
-        List<EstadoEntity> estados =this.em.createQuery(criteriaQuery).getResultList();
-        */
 
         return estados;
     }
@@ -194,17 +141,7 @@ public class CrudHibernate {
         } finally {
             session.close();
         }
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        CriteriaBuilder cb = this.em.getCriteriaBuilder();
-        CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
-        Root<TareaEntity> c = q.from(TareaEntity.class);
-        Predicate predicate = cb.like(c.<String>get("responsable"),"%"+criterio+"%");
-        q.where(predicate);
-        List<TareaEntity> tareas = this.em.createQuery(q).getResultList();
 
-        return tareas;
-        */
         return tareas;
     }
 
@@ -226,25 +163,12 @@ public class CrudHibernate {
             session.close();
         }
 
-        //TODO Para eliminar al usar Full Hibernate
-        /*
-        CriteriaBuilder cb = this.em.getCriteriaBuilder();
-        CriteriaQuery<TareaEntity> q = cb.createQuery(TareaEntity.class);
-        Root<TareaEntity> c = q.from(TareaEntity.class);
-        Predicate predicate = cb.like(c.<String>get("descripcion"),"%"+criterio+"%");
-        q.where(predicate);
-        List<TareaEntity> tareas = this.em.createQuery(q).getResultList();
-
-         */
         return tareas;
     }
 
     public void close() {
         //Cierre conexion a la BD
         this.dbConnection.close();
-        //TODO Para eliminar al usar Full Hibernate
-        //this.emf.close();
-        //this.em.close();
     }
 
 

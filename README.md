@@ -1,5 +1,16 @@
 # Tasklist-java-maven-hibernate
 
+## Hibernate
+### Cosillas de Hibernate
+```xml
+    <property name="hibernate.hbm2ddl.auto" value="update" />
+```
+     
+create - creates the schema, destroying previous data
+update - update existing schema
+validate - validate the schema, makes no changes to the database
+create-drop -  create the schema with destroying the data previously present(if there). It also drop the database schema when the SessionFactory is closed.
+
 
 ## Notes
 ```code
@@ -8,8 +19,8 @@ EntityManager será la clase que nos permitirá hacer transacciones con la base 
 persistence.xml se encarga de conectarnos a la base de datos y define el conjunto de entidades que vamos a gestionar
 
 manager.find(Estados.class, id); //busca el objeto por el primary key
-
 ```
+
 ## Foregin Keys
 <https://thorben-janssen.com/hibernate-tips-same-primary-key-one-to-one-association/>
 
