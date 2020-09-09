@@ -1,19 +1,20 @@
 package com.bootcamp.seatcode.mike.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
 public class UsuarioEntity implements Serializable {
     @Id
     long id;
-    String nombre;
-    String apellidos;
-    String email;
+    private String nombre;
+    private String apellidos;
+    private String email;
+
+
+
 
     //todo mapear la relacion OneToOne con la tabla Login
 

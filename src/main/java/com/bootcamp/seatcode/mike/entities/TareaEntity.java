@@ -17,6 +17,7 @@ public class TareaEntity implements Serializable {
     private String responsable;
     private java.sql.Date fecha;
 
+
     public TareaEntity() {
 
     }

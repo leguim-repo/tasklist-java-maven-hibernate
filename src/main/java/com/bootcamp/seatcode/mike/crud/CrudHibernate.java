@@ -12,7 +12,6 @@ import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -20,11 +19,10 @@ import javax.persistence.criteria.Root;
 
 import java.util.List;
 
-// Meter spring para la tag @Repository
 
 public class CrudHibernate {
-    private static EntityManager em;//TODO Para eliminar al usar Full Hibernate
-    private static EntityManagerFactory emf;//TODO Para eliminar al usar Full Hibernate
+    //private static EntityManager em;//TODO Para eliminar al usar Full Hibernate
+    //private static EntityManagerFactory emf;//TODO Para eliminar al usar Full Hibernate
     private static SessionFactory dbConnection;
 
     public CrudHibernate() {
@@ -51,11 +49,16 @@ public class CrudHibernate {
     }
     //TODO Clean Code
     public void createTarea(String titulo, String descripcion, String estado, String responsable, java.sql.Date fecha) {
+        //TODO Metodo a eliminar al usar Full Hibernate
+        System.out.println("No deberias llegar aqui");
+        /*
         TareaEntity nuevaTarea = new TareaEntity(titulo, descripcion, estado, responsable, fecha);
         this.em.getTransaction().begin();
         this.em.persist(nuevaTarea);
         this.em.getTransaction().commit();
+        */
     }
+
 
     public void createTarea(TareaEntity nuevaTarea) {
         //TODO pasar el try para arriba -> throws Throwable
@@ -240,8 +243,8 @@ public class CrudHibernate {
         //Cierre conexion a la BD
         this.dbConnection.close();
         //TODO Para eliminar al usar Full Hibernate
-        this.emf.close();
-        this.em.close();
+        //this.emf.close();
+        //this.em.close();
     }
 
 
