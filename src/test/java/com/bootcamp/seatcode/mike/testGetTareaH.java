@@ -18,7 +18,7 @@ public class testGetTareaH {
     }
     public static void main(String[] args) {
         CrudHibernate crud = new CrudHibernate();
-        MyPrint("DarthVader",crud.getTareas());
+        MyPrint("Lista Tareas",crud.getTareas());
         crud.close();
     }
 }

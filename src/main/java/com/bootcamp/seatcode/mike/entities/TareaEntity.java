@@ -8,14 +8,21 @@ import java.sql.Date;
 @Table(name = "tareas")
 public class TareaEntity implements Serializable {
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String estado;
     private String titulo;
     private String descripcion;
     private String responsable;
     private java.sql.Date fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UsuarioEntity user;
+
+    //@ManyToOne
+    //@JoinColumn(name = "status_id", nullable = false)
+    //private EstadoEntity status;
 
 
     public TareaEntity() {
@@ -100,4 +107,13 @@ public class TareaEntity implements Serializable {
                 ", fecha=" + fecha +
                 '}';
     }
+
+    public UsuarioEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UsuarioEntity user) {
+        this.user = user;
+    }
+
 }

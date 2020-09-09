@@ -2,26 +2,31 @@ package com.bootcamp.seatcode.mike.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "estados")
 public class EstadoEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@Column(name = "id") // no es necesario decir el nombre de la columna si ya coincide con nombre de la variable
     private long id;
     private String nombre;
     private String descripcion;
 
-    public EstadoEntity() {
 
-    }
+    //@OneToMany(mappedBy = "status")
+    //private Set<EstadoEntity> tasks;
+
+
+    public EstadoEntity() { }
 
     public EstadoEntity(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
 
     public long getId() {
         return id;

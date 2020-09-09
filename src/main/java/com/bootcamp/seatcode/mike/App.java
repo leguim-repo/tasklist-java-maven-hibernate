@@ -3,6 +3,7 @@ package com.bootcamp.seatcode.mike;
 import com.bootcamp.seatcode.mike.crud.CrudHibernate;
 import com.bootcamp.seatcode.mike.entities.EstadoEntity;
 import com.bootcamp.seatcode.mike.entities.TareaEntity;
+import com.bootcamp.seatcode.mike.entities.UsuarioEntity;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.*;
@@ -41,6 +42,14 @@ public class App {
         ComboBox<String> comboBox = new ComboBox<String>();
         for (EstadoEntity e: crud.getEstados()) {
            comboBox.addItem(e.getNombre());
+        }
+        return comboBox;
+    }
+
+    public static ComboBox<String> comboResponsable() {
+        ComboBox<String> comboBox = new ComboBox<String>();
+        for (UsuarioEntity e: crud.getUsersResponsable()) {
+            comboBox.addItem(e.getNombre());
         }
         return comboBox;
     }
@@ -123,8 +132,14 @@ public class App {
         final TextBox descripcion = new TextBox(new TerminalSize(50, 4),tarea.getDescripcion());
         panelCampos.addComponent(descripcion);
 
+        /*
         panelCampos.addComponent(new Label("Responsable"));
         final TextBox responsable = new TextBox(new TerminalSize(45, 1), tarea.getResponsable());
+        panelCampos.addComponent(responsable);
+        */
+
+        panelCampos.addComponent(new Label("Responsable"));
+        final ComboBox<String> responsable = comboResponsable();
         panelCampos.addComponent(responsable);
 
         panelCampos.addComponent(new Label("Fecha"));
@@ -144,6 +159,16 @@ public class App {
                 tarea.setDescripcion(descripcion.getText());
                 tarea.setResponsable(responsable.getText());
                 tarea.setFecha(Date.valueOf(fecha.getText()));
+                // check si exite el usuario
+                UsuarioEntity a = crud.findUserByNombre(responsable.getText());
+                //Al ser un combo y estar controlado...
+                /*
+                if (a == null) {
+                    a =  new UsuarioEntity(responsable.getText(),"","");
+                    crud.createUser(a);
+                    a = crud.findUserByNombre(responsable.getText());
+                }*/
+                tarea.setUser(a);
 
                 //TODO controlar valores erroneos (fecha) o campos vacios
                 if (accion == Acciones.CREAR_TAREA) {

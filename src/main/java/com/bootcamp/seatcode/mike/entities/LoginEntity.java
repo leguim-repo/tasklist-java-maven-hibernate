@@ -1,23 +1,41 @@
 package com.bootcamp.seatcode.mike.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "login")
 public class LoginEntity implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String user;
     private String password;
     @Column(columnDefinition = "TINYINT(1))")
     private boolean active;
 
-    public LoginEntity() {
-    }
+    /*
+    Test A
+    One To Many
+    usuarios =---< login ( fk_usuario_id )
+
+    @OneToOne
+    @JoinColumn(name="fk_usuario_id")
+    private UsuarioEntity usuario;
+    */
+
+    /*
+    Test B
+    Many To One
+    usuario ( fk_login_id ) >---= login
+    @OneToOne(mappedBy="login")
+    private UsuarioEntity usuario;
+     */
+
+
+
+
+    public LoginEntity() {}
 
     public LoginEntity(long id, String user, String password, boolean active) {
         this.id = id;

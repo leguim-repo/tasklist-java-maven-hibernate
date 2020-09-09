@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `tasklist` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `tasklist`;
 -- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
 -- Host: localhost    Database: tasklist
@@ -80,8 +82,11 @@ CREATE TABLE `tareas` (
   `descripcion` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `responsable` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKkqt1q8s7qb2wg7fuqt05t4jvy` (`user_id`),
+  CONSTRAINT `FKkqt1q8s7qb2wg7fuqt05t4jvy` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +95,7 @@ CREATE TABLE `tareas` (
 
 LOCK TABLES `tareas` WRITE;
 /*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
-INSERT INTO `tareas` VALUES (1,'Test','Proyecto Task List','Estado gobal del proyecto','Mike','2020-08-31'),(2,'To Do','Introducir Datos','Introduccion datos en la BD de Task List','Mike','2020-08-31'),(3,'To Do','Diseño GUI','Pensar como sera el GUI','Nina','2020-08-31'),(4,'WIP','Modulo de Test Basico','Modulo para probar si conecto con la BD via hibernate','Mike','2020-08-31'),(8,'Done','Crear BD','Crear BD con las tablas basicas','Mike','2020-08-31'),(9,'Test','Logica del proyecto','Logica de funcionamiento del proyecto','Mike','2020-08-31'),(10,'WIP','Como hacer un update','Funcion update del crud','Mike','2020-08-23'),(11,'Done','Crear CRUD','Crear una clase CrudHibernate para la gestion de los datos','Mike','2020-09-15'),(12,'To Do','Gestion de Usuarios','Funcionalidad para gestionar los usuarios','Nina','2020-08-31'),(14,'To Do','Funcionalidad de Login','Que la aplicacion tenga Login y Password de usuario','Nina','2020-08-31'),(15,'To Do','Relacionar tablas','Crear realaciones entre las tablas','Nina','2020-08-31'),(16,'To Do','Transformar a hibernate','Es decir nada de sentencias SQL hardcodeadas','Mike','2020-09-07');
+INSERT INTO `tareas` VALUES (1,'Test','Proyecto Task List','Estado gobal del proyecto','Mike','2020-08-31',1),(2,'To Do','Introducir Datos','Introduccion datos en la BD de Task List','Mike','2020-08-31',1),(3,'To Do','Diseño GUI','Pensar como sera el GUI','Nina','2020-08-31',1),(4,'WIP','Modulo de Test Basico','Modulo para probar si conecto con la BD via hibernate','Mike','2020-08-31',1),(8,'Done','Crear BD','Crear BD con las tablas basicas','Mike','2020-08-31',1),(9,'Test','Logica del proyecto','Logica de funcionamiento del proyecto','Mike','2020-08-31',1),(10,'WIP','Como hacer un update','Funcion update del crud','Mike','2020-08-23',1),(11,'Done','Crear CRUD','Crear una clase CrudHibernate para la gestion de los datos','Mike','2020-09-15',1),(12,'To Do','Gestion de Usuarios','Funcionalidad para gestionar los usuarios','Nina','2020-08-31',1),(14,'To Do','Funcionalidad de Login','Que la aplicacion tenga Login y Password de usuario','Nina','2020-08-31',1),(15,'To Do','Relacionar tablas','Crear realaciones entre las tablas','Nina','2020-08-31',1),(16,'To Do','Transformar a hibernate','Es decir nada de sentencias SQL hardcodeadas','Mike','2020-09-07',1),(24,'To Do','Relacion entre tablas','Crear relacines entre tablas','Nina','2050-08-31',2);
 /*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +112,7 @@ CREATE TABLE `usuarios` (
   `apellidos` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +121,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'mike','hammer','mike.hammer@gmail.com');
+INSERT INTO `usuarios` VALUES (1,'Mike','Hammer','mike.hammer@gmail.com'),(2,'Nina','Cats','nina.cats@gmail.com');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -129,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-09 19:09:19
+-- Dump completed on 2020-09-09 20:38:32

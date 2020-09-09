@@ -38,6 +38,60 @@ public class CrudHibernate {
         }
     }
 
+
+    public List<UsuarioEntity> getUsersResponsable() {
+        //TODO pasar el try para arriba -> throws Throwable
+        List<UsuarioEntity> usuarios = null;
+        Session session = this.dbConnection.openSession();
+        try {
+            CriteriaQuery<UsuarioEntity> cq = session.getCriteriaBuilder().createQuery(UsuarioEntity.class);
+            cq.select(cq.from(UsuarioEntity.class));
+            usuarios = session.createQuery(cq).getResultList();
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return usuarios;
+    }
+
+    public UsuarioEntity findUserByNombre(String criterio){
+        //TODO pasar el try para arriba -> throws Throwable
+        UsuarioEntity usuario = null;
+        Session session = this.dbConnection.openSession();
+        try {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<UsuarioEntity> q = cb.createQuery(UsuarioEntity.class);
+            Root<UsuarioEntity> c = q.from(UsuarioEntity.class);
+            Predicate predicate = cb.like(c.<String>get("nombre"),"%"+criterio+"%");
+            q.where(predicate);
+            Query<UsuarioEntity> query = session.createQuery(q);
+            usuario = query.getResultList().get(0);
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return usuario;
+    }
+
+    public void createUser(UsuarioEntity nuevoUser) {
+        //TODO pasar el try para arriba -> throws Throwable
+        Session session = this.dbConnection.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(nuevoUser);
+            transaction.commit();
+        }catch (Throwable ex) {
+            if (transaction!=null) transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
     public void createTarea(TareaEntity nuevaTarea) {
         //TODO pasar el try para arriba -> throws Throwable
         Session session = this.dbConnection.openSession();

@@ -8,12 +8,34 @@ import java.util.Set;
 @Table(name = "usuarios")
 public class UsuarioEntity implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     private String nombre;
     private String apellidos;
     private String email;
 
+    @OneToMany(mappedBy = "user")
+    private Set<TareaEntity> tasks;
 
+    //usuarios es el punto de referencia
+    /*
+    Test A
+    One To Many
+    usuarios =---< login ( fk_usuario_id )
+
+    @OneToOne(mappedBy="usuario")
+    private LoginEntity login;
+    */
+
+    /*
+    Test B
+    Many To One
+    usuario ( fk_login_id ) >---= login
+
+    @OneToOne
+    @JoinColumn(name="fk_login_id")
+    private LoginEntity login;
+     */
 
 
     //todo mapear la relacion OneToOne con la tabla Login
@@ -22,11 +44,17 @@ public class UsuarioEntity implements Serializable {
     }
 
 
-    public UsuarioEntity(long id, String nombre, String apellidos, String email) {
-        this.id = id;
+    public UsuarioEntity(String nombre, String apellidos, String email) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
+    }
+
+    public UsuarioEntity(String nombre, String apellidos, String email, Set<TareaEntity> tasks) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.tasks = tasks;
     }
 
     public long getId() {
@@ -69,5 +97,13 @@ public class UsuarioEntity implements Serializable {
                 ", apellidos='" + apellidos + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public Set<TareaEntity> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<TareaEntity> tasks) {
+        this.tasks = tasks;
     }
 }
