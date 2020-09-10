@@ -17,7 +17,8 @@ public class UsuarioEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<TareaEntity> tasks;
 
-    //usuarios es el punto de referencia
+
+    //usuarios es el punto de referencia ( padre o propietario de la relacion )
     /*
     Test A
     One To Many
@@ -26,7 +27,7 @@ public class UsuarioEntity implements Serializable {
     @OneToOne(mappedBy="usuario")
     private LoginEntity login;
     */
-
+    
     /*
     Test B
     Many To One

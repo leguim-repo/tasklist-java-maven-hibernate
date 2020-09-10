@@ -1,7 +1,12 @@
 # Tasklist-java-maven-hibernate
 
 ## Hibernate
-### Cosillas de Hibernate
+
+### Relaciones
+
+<https://www.adictosaltrabajo.com/2020/04/02/hibernate-onetoone-onetomany-manytoone-y-manytomany/>
+
+### Validacion/Creacio esquema database
 ```xml
     <property name="hibernate.hbm2ddl.auto" value="update" />
 ```
@@ -11,6 +16,16 @@ update - update existing schema
 validate - validate the schema, makes no changes to the database
 create-drop -  create the schema with destroying the data previously present(if there). It also drop the database schema when the SessionFactory is closed.
 
+
+## MySQL
+
+```mysql
+show tables;
+show tables status;
+show create table tareas;
+show columns from tareas;
+
+```
 
 ## Notes
 ```code

@@ -54,7 +54,10 @@ public class App {
         return comboBox;
     }
 
-    public static Panel panelCambiarEstado(final Acciones accion, final TareaEntity tarea) {
+    public static Panel panelCambiarEstado(final Acciones accion, TareaEntity target) {
+        final TareaEntity tarea = target;
+        tarea.setUser(target.getUser());
+
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -141,6 +144,7 @@ public class App {
         panelCampos.addComponent(new Label("Responsable"));
         final ComboBox<String> responsable = comboResponsable();
         panelCampos.addComponent(responsable);
+
 
         panelCampos.addComponent(new Label("Fecha"));
         final TextBox fecha = new TextBox(new TerminalSize(11, 1), String.valueOf(tarea.getFecha()));
@@ -231,8 +235,18 @@ public class App {
         tabla.setSelectAction(new Runnable() {
             @Override
             public void run() {
+                //bicicleta para recrear la tarea
+
+                Integer idTarget = Integer.parseInt(tabla.getTableModel().getRow(tabla.getSelectedRow()).get(0));
+                System.out.println("idTarget: "+idTarget);
+
+                TareaEntity tarea = crud.getTareaById(idTarget);
+
+                /*
                 TareaEntity tarea;
                 tarea= row2Tarea(tabla.getTableModel().getRow(tabla.getSelectedRow()));
+                */
+
                 System.out.println("Tarea objetivo:"+tarea.toString());
                 switch (accion) {
                     case LISTA_TAREAS:

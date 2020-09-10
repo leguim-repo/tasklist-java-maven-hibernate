@@ -16,8 +16,6 @@ public class EstadoEntity implements Serializable {
     private String descripcion;
 
 
-    //@OneToMany(mappedBy = "status")
-    //private Set<EstadoEntity> tasks;
 
 
     public EstadoEntity() { }

@@ -24,6 +24,7 @@ public class LoginEntity implements Serializable {
     private UsuarioEntity usuario;
     */
 
+
     /*
     Test B
     Many To One

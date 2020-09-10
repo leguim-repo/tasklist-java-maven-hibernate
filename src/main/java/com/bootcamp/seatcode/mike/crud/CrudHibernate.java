@@ -108,6 +108,19 @@ public class CrudHibernate {
         }
     }
 
+    public TareaEntity getTareaById(long id) {
+        TareaEntity tarea = null;
+        Session session = this.dbConnection.openSession();
+        try {
+            tarea = session.get(TareaEntity.class, id);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return tarea;
+    }
+
 
     public List<TareaEntity> getTareas() {
         //TODO pasar el try para arriba -> throws Throwable

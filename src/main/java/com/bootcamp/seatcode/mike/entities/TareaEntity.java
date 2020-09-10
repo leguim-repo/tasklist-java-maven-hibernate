@@ -3,6 +3,7 @@ package com.bootcamp.seatcode.mike.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "tareas")
@@ -20,9 +21,7 @@ public class TareaEntity implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private UsuarioEntity user;
 
-    //@ManyToOne
-    //@JoinColumn(name = "status_id", nullable = false)
-    //private EstadoEntity status;
+
 
 
     public TareaEntity() {
