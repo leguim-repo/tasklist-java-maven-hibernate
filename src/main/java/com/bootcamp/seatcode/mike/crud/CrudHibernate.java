@@ -56,6 +56,26 @@ public class CrudHibernate {
         return usuarios;
     }
 
+    public EstadoEntity findEstadoByNombre(String criterio) {
+        //TODO pasar el try para arriba -> throws Throwable
+        EstadoEntity estado = null;
+        Session session = this.dbConnection.openSession();
+        try {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<EstadoEntity> q = cb.createQuery(EstadoEntity.class);
+            Root<EstadoEntity> c = q.from(EstadoEntity.class);
+            Predicate predicate = cb.like(c.<String>get("nombre"),"%"+criterio+"%");
+            q.where(predicate);
+            Query<EstadoEntity> query = session.createQuery(q);
+            estado = query.getResultList().get(0);
+        }catch (Throwable ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return estado;
+    }
+
     public UsuarioEntity findUserByNombre(String criterio){
         //TODO pasar el try para arriba -> throws Throwable
         UsuarioEntity usuario = null;

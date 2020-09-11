@@ -21,7 +21,9 @@ public class TareaEntity implements Serializable {
     @JoinColumn(name = "fk_user_id", nullable = false)
     private UsuarioEntity user;
 
-
+    @ManyToOne
+    @JoinColumn(name = "fk_estado_id", nullable = false)
+    private EstadoEntity status;
 
 
     public TareaEntity() {
@@ -115,4 +117,11 @@ public class TareaEntity implements Serializable {
         this.user = user;
     }
 
+    public EstadoEntity getStatus() {
+        return status;
+    }
+
+    public void setStatus(EstadoEntity status) {
+        this.status = status;
+    }
 }

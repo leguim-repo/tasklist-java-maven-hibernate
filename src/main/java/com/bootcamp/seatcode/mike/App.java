@@ -162,13 +162,16 @@ public class App {
         Button btAceptar = new Button("Aceptar", new Runnable() {
             @Override
             public void run() {
-                tarea.setEstado(estado.getText());
+                tarea.setEstado(crud.findEstadoByNombre(estado.getText()).getNombre()); // para que verlo en las tablas a traves del workbench
+                tarea.setStatus(crud.findEstadoByNombre(estado.getText()));
                 tarea.setTitulo(titulo.getText());
                 tarea.setDescripcion(descripcion.getText());
-                tarea.setResponsable(responsable.getText());
                 tarea.setFecha(Date.valueOf(fecha.getText()));
+                tarea.setResponsable(responsable.getText());// para que verlo en las tablas a traves del workbench
                 // check si exite el usuario
-                UsuarioEntity a = crud.findUserByNombre(responsable.getText());
+                UsuarioEntity usuario = crud.findUserByNombre(responsable.getText());
+                tarea.setUser(usuario);
+
                 //Al ser un combo y estar controlado...
                 /*
                 if (a == null) {
@@ -176,7 +179,6 @@ public class App {
                     crud.createUser(a);
                     a = crud.findUserByNombre(responsable.getText());
                 }*/
-                tarea.setUser(a);
 
                 //TODO controlar valores erroneos (fecha) o campos vacios
                 if (accion == Acciones.CREAR_TAREA) {
