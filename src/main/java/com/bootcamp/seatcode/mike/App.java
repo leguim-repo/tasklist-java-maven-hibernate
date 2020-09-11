@@ -215,6 +215,7 @@ public class App {
         return panelMain;
     }
 
+    //TODO para eliminar ya no es necesario
     public static TareaEntity row2Tarea(List<String> row) {
 
         TareaEntity tarea = new TareaEntity();
