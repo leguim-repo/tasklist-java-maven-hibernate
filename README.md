@@ -1,6 +1,15 @@
 # Tasklist-java-maven-hibernate
 
 ## Hibernate
+OneToOne  
+@PrimaryKeyJoinColumn
+<https://www.javaguides.net/2019/12/hibernate-primarykeyjoincolumn.html>
+<https://www.journaldev.com/3481/hibernate-session-merge-vs-update-save-saveorupdate-persist-example>
+
+<http://zetcode.com/hibernate/onetoone/>
+
+Repository  
+<http://zetcode.com/springboot/repository/> (usa jpa :( )
 
 ### Relaciones
 

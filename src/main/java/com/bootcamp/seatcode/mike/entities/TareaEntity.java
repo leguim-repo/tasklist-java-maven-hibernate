@@ -18,7 +18,7 @@ public class TareaEntity implements Serializable {
     private java.sql.Date fecha;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "fk_user_id", nullable = false)
     private UsuarioEntity user;
 
 

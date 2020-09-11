@@ -58,6 +58,7 @@ public class App {
         final TareaEntity tarea = target;
         tarea.setUser(target.getUser());
 
+
         final Panel panelMain = new Panel();
         panelMain.setLayoutManager(new LinearLayout(Direction.VERTICAL));
         panelMain.addComponent(new EmptySpace(new TerminalSize(0, 1)));
@@ -143,6 +144,9 @@ public class App {
 
         panelCampos.addComponent(new Label("Responsable"));
         final ComboBox<String> responsable = comboResponsable();
+        if (accion == Acciones.EDITAR_TAREA) {
+            responsable.setSelectedItem(tarea.getUser().getNombre());
+        }
         panelCampos.addComponent(responsable);
 
 
@@ -229,7 +233,7 @@ public class App {
 
         final Table<String> tabla = new Table<String>("ID", "Estado", "Titulo", "Descripcion", "Responsable", "Fecha");
         for (TareaEntity e: tareas) {
-            tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(),  e.getResponsable(), String.valueOf(e.getFecha()));
+            tabla.getTableModel().addRow(String.valueOf(e.getId()), e.getEstado(), e.getTitulo(), e.getDescripcion(),  e.getUser().getNombre(), String.valueOf(e.getFecha()));
         }
 
         tabla.setSelectAction(new Runnable() {
