@@ -17,6 +17,10 @@ public class UsuarioEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<TareaEntity> tasks;
 
+    @OneToOne()
+    @JoinColumn(name = "fk_datos_login", nullable = false)
+    private LoginEntity datosLogin;
+
 
     //usuarios es el punto de referencia ( padre o propietario de la relacion )
     /*
@@ -106,5 +110,13 @@ public class UsuarioEntity implements Serializable {
 
     public void setTasks(Set<TareaEntity> tasks) {
         this.tasks = tasks;
+    }
+
+    public LoginEntity getDatosLogin() {
+        return datosLogin;
+    }
+
+    public void setDatosLogin(LoginEntity datosLogin) {
+        this.datosLogin = datosLogin;
     }
 }

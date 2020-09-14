@@ -61,4 +61,11 @@ public class EstadoEntity implements Serializable {
     }
 
 
+    public Set<TareaEntity> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<TareaEntity> tasks) {
+        this.tasks = tasks;
+    }
 }

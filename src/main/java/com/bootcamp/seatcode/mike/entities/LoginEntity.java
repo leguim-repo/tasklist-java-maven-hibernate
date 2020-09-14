@@ -14,6 +14,8 @@ public class LoginEntity implements Serializable {
     @Column(columnDefinition = "TINYINT(1))")
     private boolean active;
 
+    @OneToOne(mappedBy = "datosLogin")
+    private UsuarioEntity usuario_id;
     /*
     Test A
     One To Many
@@ -86,5 +88,21 @@ public class LoginEntity implements Serializable {
                 ", password='" + password + '\'' +
                 ", active=" + active +
                 '}';
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public UsuarioEntity getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(UsuarioEntity usuario_id) {
+        this.usuario_id = usuario_id;
     }
 }

@@ -39,7 +39,6 @@ update - update existing schema
 validate - validate the schema, makes no changes to the database
 create-drop -  create the schema with destroying the data previously present(if there). It also drop the database schema when the SessionFactory is closed.
 
-
 #### MySQL
 
 ```mysql
